@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:background="#fff"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/writer_profile"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="15dp"
+        android:src="@drawable/default_user"/>
+
+    <TextView
+        android:id="@+id/writer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/writer_profile"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        android:textSize="15sp"
+        android:text="Dahoon"/>
+
+    <TextView
+        android:id="@+id/writer_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/writer_name"
+        android:layout_alignBaseline="@id/writer_name"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="25dp"
+        android:textSize="13sp"
+        android:textColor="#A6A6A6"
+        android:text="\@potter7050"/>
+
+    <TextView
+        android:id="@+id/tweet_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/writer_profile"
+        android:layout_below="@id/writer_id"
+        android:autoLink="web"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:textSize="15sp"
+        android:textColorLink="@color/blue"
+        android:text="Hello! My name is Dahoon Bok."/>
+
+    <TextView
+        android:id="@+id/created_time_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:textSize="13sp"
+        android:textColor="#A6A6A6"
+        android:text="10:56 AM"/>
+
+    <TextView
+        android:id="@+id/created_date_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@id/created_time_at"
+        android:textSize="13sp"
+        android:textColor="#A6A6A6"
+        android:text="2016.02.11"/>
+
+    <ImageView
+        android:id="@+id/tweet_image"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/tweet_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="70dp"/>
+
+    <LinearLayout
+        android:id="@+id/layout_button"
+        android:layout_below="@id/tweet_image"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/tweet_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_reply_black_36dp"/>
+
+        <ImageView
+            android:id="@+id/tweet_favorite"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_favorite_border_black_36dp"/>
+
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/content_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentBottom="true"
+        android:background="#EAEAEA"/>
+
+</RelativeLayout>

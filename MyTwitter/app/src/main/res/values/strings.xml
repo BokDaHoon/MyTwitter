@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">My Twitter</string>
+    <string name="id_paceholder">Email 또는 계정을 입력해주세요.</string>
+    <string name="password_placeholder">비밀번호를 입력해주세요.</string>
+    <string name="login_button">Login</string>
+    <string name="title_activity_timeline">TimelineActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+</resources>
