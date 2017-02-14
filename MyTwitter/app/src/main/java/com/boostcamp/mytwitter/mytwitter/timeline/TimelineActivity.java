@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.boostcamp.mytwitter.mytwitter.R;
+import com.boostcamp.mytwitter.mytwitter.base.TwitterInfo;
+import com.boostcamp.mytwitter.mytwitter.detail.DetailActivity;
 import com.boostcamp.mytwitter.mytwitter.timeline.adapter.TimelineAdapter;
 import com.boostcamp.mytwitter.mytwitter.timeline.presenter.TimelinePresenter;
 import com.boostcamp.mytwitter.mytwitter.timeline.presenter.TimelinePresenterImpl;
@@ -52,6 +54,8 @@ public class TimelineActivity extends AppCompatActivity
     private TimelinePresenterImpl presenter;
     private TimelineAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
+
+    private static final int REQUEST_TWEET = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +109,16 @@ public class TimelineActivity extends AppCompatActivity
 
     void moveToWrite() {
         Intent intent = new Intent(this, WriteActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_TWEET);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == WriteActivity.RESULT_SUCCESS_TWEET) {
+            presenter.loadTimelineList();
+        }
     }
 
     @Override
@@ -173,10 +186,19 @@ public class TimelineActivity extends AppCompatActivity
     @Override
     public void initSidebarNavigation(User user) {
         Log.d("TimelineActivity", user.toString());
+
+        TwitterInfo.TwitUser = user;
+
         twitterProfileId.setText("@" + user.getScreenName());
         twitterProfileName.setText(user.getName());
         Glide.with(this)
              .load(user.getProfileImageURL())
              .into(twitterProfileImage);
+    }
+
+    @Override
+    public void moveToDetail() {
+        Intent intent = new Intent(this, DetailActivity.class);
+        startActivity(intent);
     }
 }

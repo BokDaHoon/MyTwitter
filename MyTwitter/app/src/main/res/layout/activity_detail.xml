@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/white"
+    tools:context="com.boostcamp.mytwitter.mytwitter.detail.DetailActivity">
+
+    <ImageView
+        android:id="@+id/detail_profile_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/default_user"/>
+
+    <TextView
+        android:id="@+id/detail_tweet_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/detail_profile_image"
+        android:text="복다훈"/>
+
+    <TextView
+        android:id="@+id/detail_tweet_user_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/detail_profile_image"
+        android:layout_below="@id/detail_tweet_user_name"
+        android:text="\@potter7050"/>
+
+    <TextView
+        android:id="@+id/detail_tweet_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/detail_profile_image"
+        android:text="내용"/>
+
+    <ImageView
+        android:id="@+id/detail_tweet_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detail_tweet_content"
+        android:scaleType="centerInside"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/detail_twitter_card"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detail_tweet_image"
+        card_view:cardCornerRadius="5dp"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/detail_og_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/detail_og_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/black"
+                android:text="title"/>
+
+            <TextView
+                android:id="@+id/detail_og_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="11sp"
+                android:textColor="@color/gray"
+                android:text="url"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/detail_created_date_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detail_twitter_card"
+        android:layout_marginTop="10dp"
+        android:text="2017년 02월 14일"/>
+
+    <TextView
+        android:id="@+id/detail_created_time_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detail_twitter_card"
+        android:layout_toRightOf="@id/detail_created_date_in"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="오후 7:33"/>
+
+    <View
+        android:id="@+id/create_date_div"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/detail_created_date_in"
+        android:layout_marginTop="10dp"
+        android:background="@color/gray"/>
+
+    <TextView
+        android:id="@+id/detail_retweet_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/create_date_div"
+        android:layout_marginTop="10dp"
+        android:text="3"/>
+
+    <TextView
+        android:id="@+id/detail_retweet_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/create_date_div"
+        android:layout_toRightOf="@id/detail_retweet_count"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:textSize="8dp"
+        android:layout_alignBaseline="@id/detail_retweet_count"
+        android:text="@string/retweet_label"/>
+
+    <TextView
+        android:id="@+id/detail_favorite_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/create_date_div"
+        android:layout_toRightOf="@id/detail_retweet_label"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="5"/>
+
+    <TextView
+        android:id="@+id/detail_favorite_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/create_date_div"
+        android:layout_toRightOf="@id/detail_favorite_count"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:textSize="8dp"
+        android:layout_alignBaseline="@id/detail_favorite_count"
+        android:text="@string/favorite_label"/>
+
+    <View
+        android:id="@+id/retweet_favorite_div"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/detail_favorite_label"
+        android:layout_marginTop="10dp"
+        android:background="@color/gray"/>
+
+</RelativeLayout>

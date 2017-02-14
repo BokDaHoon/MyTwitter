@@ -3,6 +3,7 @@ package com.boostcamp.mytwitter.mytwitter.base;
 import java.text.SimpleDateFormat;
 
 import twitter4j.Twitter;
+import twitter4j.User;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
@@ -16,6 +17,7 @@ public class TwitterInfo {
     public static final String TWIT_CONSUMER_KEY = "3AyuRwmWaCdyy0wDnZ5Ar3rrK";
     public static final String TWIT_CONSUMER_SECRET = "RvlHIbMrbjHrUZS0c89aMMOmlFa2HOJ3yOwgKyzlSnv1her2PQ";
     public static final String TWIT_CALLBACK_URL = "http://mytwitter.boostcamp.com";
+    public static User TwitUser = null;
 
     public static final int REQ_CODE_TWIT_LOGIN = 1001;
 

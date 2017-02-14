@@ -9,7 +9,7 @@
     </style>
 
     <style name="AppThemeNoBar" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/twitterDefaultColor</item>
         <item name="colorPrimaryDark">@color/twitterDefaultColor</item>
         <item name="colorAccent">@color/twitterDefaultFocusColor</item>
         <!-- No Title Bar-->

@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_close_gray"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -22,7 +22,7 @@
         <activity
             android:name=".timeline.TimelineActivity"
             android:label="@string/title_activity_timeline"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppThemeNoBar">
             <meta-data
                 android:name=".searchable"
                 android:resource="@xml/searchable"/>
@@ -37,9 +37,14 @@
 
         <activity
             android:name=".login.LoginAuthorityActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppThemeNoBar">
         </activity>
-        <activity android:name=".write.WriteActivity">
+        <activity
+            android:name=".write.WriteActivity"
+            android:theme="@style/AppThemeNoBar"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name=".detail.DetailActivity">
         </activity>
     </application>
 

@@ -1,14 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_write"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="@color/white"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.boostcamp.mytwitter.mytwitter.write.WriteActivity">
 
-</RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/write_close"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@color/white"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_close_gray"/>
+
+                <ImageView
+                    android:id="@+id/user_profile_image"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/tweet_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/write_placeholder"
+                android:textSize="15sp"
+                android:gravity="top|left"
+                android:background="@color/white"
+                android:textColorHint="@color/gray"/>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:id="@+id/content_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/default_user"
+                    android:scaleType="fitXY"
+                    android:adjustViewBounds="true"/>
+
+                <ImageButton
+                    android:id="@+id/content_image_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_cancel_black_36dp"
+                    android:background="@null"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <View
+        android:id="@+id/content_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="-16dp"
+        android:layout_marginRight="-16dp"
+        android:background="#EAEAEA"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center|left">
+
+        <ImageButton
+            android:id="@+id/btn_camera"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@color/white"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_camera"/>
+
+        <ImageButton
+            android:id="@+id/btn_gallery"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_toRightOf="@id/btn_camera"
+            android:layout_marginLeft="40dp"
+            android:background="@color/white"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_gallery"/>
+
+        <Button
+            android:id="@+id/send_tweet"
+            android:layout_width="60dp"
+            android:layout_height="36dp"
+            android:background="@xml/buttonshape"
+            android:layout_alignParentRight="true"
+            android:text="@string/send_tweet"
+            android:textColor="@color/white"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
