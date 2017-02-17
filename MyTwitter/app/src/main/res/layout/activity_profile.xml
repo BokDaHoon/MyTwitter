@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_profile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.boostcamp.mytwitter.mytwitter.profile.ProfileActivity">
+
+    <FrameLayout
+        android:id="@+id/profile_image_layout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <ImageView
+            android:id="@+id/profile_background"
+            android:layout_gravity="top"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"/>
+
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="top|left"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/ic_back_button"
+            android:background="@null"/>
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@xml/profileimage_shape"
+            android:scaleType="centerInside"
+            android:src="@drawable/default_user"/>
+
+        <Button
+            android:id="@+id/btn_profile_setting"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:background="@xml/profilesetting_shape"
+            android:color="@color/twitterDefaultColor"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="30dp"
+            android:padding="5dp"
+            android:text="@string/profile_setting"/>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/profile_image_layout"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:text="테스트"/>
+
+    <TextView
+        android:id="@+id/profile_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/profile_name"
+        android:text="\@test"/>
+
+    <LinearLayout
+        android:id="@+id/following_follwer_layout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_below="@id/profile_id">
+
+
+        <TextView
+            android:id="@+id/following_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/following_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textSize="10sp"
+            android:text="@string/following_label"/>
+
+        <TextView
+            android:id="@+id/follower_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/follower_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textSize="10sp"
+            android:text="@string/follower_label"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/content_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/following_follwer_layout"
+        android:layout_margin="10dp"
+        android:background="@color/light_gray"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/content_divider">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/user_tweet_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

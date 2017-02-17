@@ -58,6 +58,6 @@ public class TimelinePresenterImpl implements TimelinePresenter.Presenter, Timel
 
     @Override
     public void onItemClick(int position) {
-        view.moveToDetail();
+        view.moveToDetail(position);
     }
 }

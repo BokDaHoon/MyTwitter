@@ -13,11 +13,7 @@
         <activity
             android:name=".login.LoginActivity"
             android:theme="@style/AppThemeNoBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
             android:name=".timeline.TimelineActivity"
@@ -45,6 +41,17 @@
             android:windowSoftInputMode="adjustResize">
         </activity>
         <activity android:name=".detail.DetailActivity">
+        </activity>
+        <activity
+            android:name=".profile.ProfileActivity"
+            android:theme="@style/AppThemeNoBar">
+        </activity>
+        <activity android:name=".search.SearchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
     </application>
 

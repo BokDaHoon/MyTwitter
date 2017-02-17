@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.boostcamp.mytwitter.mytwitter.R;
 import com.boostcamp.mytwitter.mytwitter.listener.OnItemClickListener;
@@ -53,22 +54,12 @@ public class TimelineHolder extends RecyclerView.ViewHolder {
     TextView createDateIn;
     @BindView(R.id.created_time_at)
     TextView createTimeAt;
-    @BindView(R.id.tweet_image)
-    ImageView tweetImage;
     @BindView(R.id.tweet_reply)
     ImageView tweetReply;
     @BindView(R.id.tweet_favorite)
-    ImageView tweetFavorite;
+    ToggleButton tweetFavorite;
     @BindView(R.id.tweet_favorite_count)
     TextView tweetFavoirteCount;
-    @BindView(R.id.twitter_card)
-    CardView twitterCard;
-    @BindView(R.id.og_image)
-    ImageView ogTagImage;
-    @BindView(R.id.og_title)
-    TextView ogTagTitle;
-    @BindView(R.id.og_url)
-    TextView ogTagUrl;
 
     public TimelineHolder(Context context, View itemView, OnItemClickListener listener) {
         super(itemView);
@@ -95,33 +86,16 @@ public class TimelineHolder extends RecyclerView.ViewHolder {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("a hh:mm");
 
+        if (status.isFavorited()) {
+            tweetFavorite.setChecked(true);
+        } else {
+            tweetFavorite.setChecked(false);
+        }
+
         Glide.with(mContext)
              .load(user.getProfileImageURL())
              .diskCacheStrategy(DiskCacheStrategy.ALL)
              .into(writerProfile);
-
-        if (status.getMediaEntities().length != 0) { // Tweet에 이미지가 있는 경우
-           tweetImage.setVisibility(View.VISIBLE);
-           MediaEntity[] mediaResult = status.getMediaEntities();
-           Glide.with(mContext)
-                .load(mediaResult[0].getMediaURL())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(tweetImage);
-
-            twitterCard.setVisibility(View.GONE);
-
-        } else { // Tweet에 이미지가 없는 경우
-           tweetImage.setVisibility(View.GONE);
-
-            URLEntity[] urlResult = status.getURLEntities();
-            if(urlResult.length != 0 && urlResult[0].getExpandedURL() != null){
-                twitterCard.setVisibility(View.VISIBLE);
-                new SetCardViewTask().execute(urlResult[0].getExpandedURL());
-            } else {
-                twitterCard.setVisibility(View.GONE);
-            }
-
-        }
 
         createDateIn.setText(dateFormat.format(status.getCreatedAt()));
         createTimeAt.setText(timeFormat.format(status.getCreatedAt()));
@@ -129,74 +103,4 @@ public class TimelineHolder extends RecyclerView.ViewHolder {
         tweetFavoirteCount.setText(String.valueOf(status.getFavoriteCount()));
     }
 
-    class SetCardViewTask extends AsyncTask<String, Void, Document> {
-
-        private String url = "";
-
-        @Override
-        protected Document doInBackground(String... params) {
-
-            url = params[0];
-
-            Connection conn = Jsoup.connect(url);
-            Document doc = null;
-            try {
-                doc = conn.get();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return doc;
-        }
-
-        @Override
-        protected void onPostExecute(Document doc) {
-            super.onPostExecute(doc);
-
-            // TwitterCard 제목 설정
-            Elements metaOgTitle = doc.select("meta[property=og:title]");
-            if (metaOgTitle != null) {
-                ogTagTitle.setText(metaOgTitle.attr("content"));
-            }
-            else {
-                ogTagTitle.setText(doc.title());
-            }
-
-
-            // TwitterCard URL 설정
-            Elements metaOgUrl = doc.select("meta[property=og:url]");
-            if (metaOgUrl != null) {
-                ogTagUrl.setText(metaOgUrl.attr("content"));
-            }
-            else {
-                ogTagUrl.setText(url);
-            }
-
-
-            // TwitterCard Image 설정
-            String imageUrl = null;
-            Elements metaOgImage = doc.select("meta[property=og:image]");
-            if (metaOgImage != null) {
-                imageUrl = metaOgImage.attr("content");
-                Glide.with(mContext)
-                        .load(imageUrl)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(ogTagImage);
-            } else {
-                ogTagImage.setImageResource(R.drawable.twitter_card_default);
-            }
-
-            // TwitterCard Link 설정
-            twitterCard.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    mContext.startActivity(intent);
-                }
-            });
-
-        }
-
-    }
 }

@@ -13,7 +13,7 @@ public interface TimelinePresenter {
     interface View {
         void initSidebarNavigation(User user);
 
-        void moveToDetail();
+        void moveToDetail(int position);
     }
 
     interface Presenter {

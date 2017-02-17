@@ -3,7 +3,6 @@ package com.boostcamp.mytwitter.mytwitter.timeline;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +22,7 @@ import android.widget.TextView;
 import com.boostcamp.mytwitter.mytwitter.R;
 import com.boostcamp.mytwitter.mytwitter.base.TwitterInfo;
 import com.boostcamp.mytwitter.mytwitter.detail.DetailActivity;
+import com.boostcamp.mytwitter.mytwitter.profile.ProfileActivity;
 import com.boostcamp.mytwitter.mytwitter.timeline.adapter.TimelineAdapter;
 import com.boostcamp.mytwitter.mytwitter.timeline.presenter.TimelinePresenter;
 import com.boostcamp.mytwitter.mytwitter.timeline.presenter.TimelinePresenterImpl;
@@ -56,6 +56,11 @@ public class TimelineActivity extends AppCompatActivity
     private LinearLayoutManager mLayoutManager;
 
     private static final int REQUEST_TWEET = 100;
+    public static final String DETAIL_STATUS_KEY = "detail_status_key";
+    public static final String VIEWHOLDER_TYPE = "viewholder_type";
+
+    // ProfileActivity Flag
+    public static final int MY_PROFILE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +100,7 @@ public class TimelineActivity extends AppCompatActivity
 
         mAdapter = new TimelineAdapter(this);
         timeline.setAdapter(mAdapter);
+        timeline.setItemViewCacheSize(10);
 
 
         presenter = new TimelinePresenterImpl();
@@ -160,8 +166,8 @@ public class TimelineActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.nav_profile) {
+            moveToProfile();
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -197,8 +203,18 @@ public class TimelineActivity extends AppCompatActivity
     }
 
     @Override
-    public void moveToDetail() {
+    public void moveToDetail(int position) {
         Intent intent = new Intent(this, DetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(DETAIL_STATUS_KEY, mAdapter.getListData(position));
+        intent.putExtra(VIEWHOLDER_TYPE, mAdapter.getItemViewType(position));
+        intent.putExtra(DETAIL_STATUS_KEY, bundle);
+        startActivity(intent);
+    }
+
+    private void moveToProfile() {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("ProfileFlag", MY_PROFILE);
         startActivity(intent);
     }
 }
