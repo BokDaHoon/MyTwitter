@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -17,7 +18,9 @@ import com.boostcamp.mytwitter.mytwitter.profile.presenter.ProfilePresenter;
 import com.boostcamp.mytwitter.mytwitter.profile.presenter.ProfilePresenterImpl;
 import com.boostcamp.mytwitter.mytwitter.timeline.TimelineActivity;
 import com.boostcamp.mytwitter.mytwitter.timeline.adapter.TimelineAdapter;
+import com.boostcamp.mytwitter.mytwitter.util.Define;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +51,9 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     private ProfilePresenterImpl presenter;
     private TimelineAdapter adapter;
     private User user;
+    private RequestManager mGlideRequestManager;
+    private String profileImagePath;
+    private String profileBackgroundPath;
 
     private static final String DEFAULT_PROFILE_URL = "https://abs.twimg.com/a/1487131246/img/t1/highline/empty_state/owner_empty_avatar.png";
 
@@ -61,15 +67,26 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     }
 
     void init() {
+        mGlideRequestManager = Glide.with(this);
         presenter = new ProfilePresenterImpl();
         presenter.setView(this);
 
         int profileFlag = getIntent().getIntExtra("ProfileFlag", -1);
 
         switch(profileFlag) {
-            case TimelineActivity.MY_PROFILE :
+            case Define.MY_PROFILE :
                 presenter.initMyProfile();
                 presenter.loadUserTweetList(user.getId());
+                profileSetting.setVisibility(View.VISIBLE);
+                break;
+            case Define.OTHER_PROFILE :
+                Intent intent = getIntent();
+                long id = intent.getLongExtra(Define.USER_ID_KEY, -1);
+                if (id != -1) {
+                    presenter.initOtherProfile(id);
+                    presenter.loadUserTweetList(id);
+                }
+                profileSetting.setVisibility(View.GONE);
                 break;
         }
 
@@ -86,13 +103,20 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     @Override
     public void setMyProfile(User user) {
         this.user = user;
-        Log.d("ProfileActivity", user.toString());
 
+        profileBackgroundPath = user.getProfileBackgroundImageURL();
         // Profile Background
-        if (!user.isProfileUseBackgroundImage()) { // ProfileBackground 설정이 존재할 경우
-            Glide.with(this)
-                    .load(user.getProfileBackgroundImageURL())
-                    .into(profileBackground);
+        if (profileBackgroundPath != null) { // ProfileBackground 설정이 존재할 경우
+
+            profileBackground.post(new Runnable() {
+                @Override
+                public void run() {
+                    mGlideRequestManager
+                            .load(profileBackgroundPath)
+                            .centerCrop()
+                            .into(profileBackground);
+                }
+            });
         } else { // ProfileBackground 설정이 존재하지 않을 경우
             profileBackground.setBackgroundColor(getResources().getColor(R.color.twitter_default_background_color));
         }
@@ -100,9 +124,17 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
 
         // Profile Image
         if (!user.isDefaultProfileImage()) { // ProfileImage 설정이 존재할 경우
-            Glide.with(this)
-                    .load(user.getProfileImageURL())
-                    .into(profileImage);
+            profileImagePath = user.getOriginalProfileImageURL();
+
+            profileImage.post(new Runnable() {
+                @Override
+                public void run() {
+                    mGlideRequestManager
+                            .load(profileImagePath)
+                            .into(profileImage);
+                }
+            });
+
         } else { // ProfileImage 설정이 존재하지 않을 경우
             profileImage.setImageResource(R.drawable.default_profile);
         }

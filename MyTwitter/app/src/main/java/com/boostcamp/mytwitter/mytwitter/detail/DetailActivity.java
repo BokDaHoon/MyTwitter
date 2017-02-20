@@ -23,7 +23,9 @@ import com.boostcamp.mytwitter.mytwitter.detail.presenter.DetailPresenter;
 import com.boostcamp.mytwitter.mytwitter.detail.presenter.DetailPresenterImpl;
 import com.boostcamp.mytwitter.mytwitter.timeline.TimelineActivity;
 import com.boostcamp.mytwitter.mytwitter.timeline.adapter.TimelineAdapter;
+import com.boostcamp.mytwitter.mytwitter.util.Define;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -83,6 +85,11 @@ public class DetailActivity extends AppCompatActivity implements DetailPresenter
     @BindView(R.id.progress_bar)
     RotateLoading progressBar;
 
+    private RequestManager mGlideRequestManager;
+    private String profileImagePath;
+    private MediaEntity[] mediaResult;
+    private String metaOgImageUrl;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +98,7 @@ public class DetailActivity extends AppCompatActivity implements DetailPresenter
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(ACTIVITY_TITLE);
         ButterKnife.bind(this);
+        mGlideRequestManager = Glide.with(this);
 
         init();
     }
@@ -110,16 +118,16 @@ public class DetailActivity extends AppCompatActivity implements DetailPresenter
         // ViewHolder의 Type에 따라 레이아웃을 변경해준다.
         int viewHolderType = intent.getIntExtra(TimelineActivity.VIEWHOLDER_TYPE, -1);
         switch (viewHolderType) {
-            case TimelineAdapter.TIMELINE_COMMON_TYPE :
+            case Define.TIMELINE_COMMON_TYPE :
                 detailTweetImage.setVisibility(View.GONE);
                 detailTwitterCard.setVisibility(View.GONE);
                 break;
-            case TimelineAdapter.TIMELINE_IMAGE_TYPE :
+            case Define.TIMELINE_IMAGE_TYPE :
                 detailTweetImage.setVisibility(View.VISIBLE);
                 detailTwitterCard.setVisibility(View.GONE);
                 setTweetImage(status);
                 break;
-            case TimelineAdapter.TIMELINE_CARDVIEW_TYPE :
+            case Define.TIMELINE_CARDVIEW_TYPE :
                 detailTweetImage.setVisibility(View.GONE);
                 detailTwitterCard.setVisibility(View.VISIBLE);
                 setTwitterCard(status);
@@ -138,11 +146,18 @@ public class DetailActivity extends AppCompatActivity implements DetailPresenter
     void setDetailView(Status status) {
         User user = status.getUser();
 
+        profileImagePath = user.getProfileImageURL();
         // 작성자 Profile 사진 표시.
-        Glide.with(this)
-             .load(user.getProfileImageURL())
-             .diskCacheStrategy(DiskCacheStrategy.ALL)
-             .into(detailProfileImage);
+        detailProfileImage.post(new Runnable() {
+            @Override
+            public void run() {
+                mGlideRequestManager
+                        .load(profileImagePath)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(detailProfileImage);
+            }
+        });
+
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("a hh:mm");
@@ -168,11 +183,17 @@ public class DetailActivity extends AppCompatActivity implements DetailPresenter
 
     // 트윗 이미지 세팅.
     void setTweetImage(Status status) {
-        MediaEntity[] mediaResult = status.getMediaEntities();
-        Glide.with(this)
-                .load(mediaResult[0].getMediaURL())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(detailTweetImage);
+        mediaResult = status.getMediaEntities();
+        detailTweetImage.post(new Runnable() {
+            @Override
+            public void run() {
+                mGlideRequestManager
+                    .load(mediaResult[0].getMediaURL())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(detailTweetImage);
+            }
+        });
+
     }
 
     // 트위터 카드의 URL을 Document 형태로 가져오기.
@@ -248,6 +269,14 @@ public class DetailActivity extends AppCompatActivity implements DetailPresenter
         protected void onPostExecute(Document doc) {
             super.onPostExecute(doc);
 
+            // 접속 실패 시
+            if (doc == null) {
+                detailOgImage.setImageResource(R.drawable.twitter_card_default);
+                detailOgTitle.setText("Title");
+                detailOgUrl.setText(url);
+                return;
+            }
+
             // TwitterCard 제목 설정
             Elements metaOgTitle = doc.select("meta[property=og:title]");
             if (metaOgTitle.attr("content") != "") {
@@ -273,12 +302,19 @@ public class DetailActivity extends AppCompatActivity implements DetailPresenter
             Elements metaOgImage = doc.select("meta[property=og:image]");
 
             if (metaOgImage.attr("content") != "") {
-                imageUrl = metaOgImage.attr("content");
-                Glide.with(mContext)
-                     .load(imageUrl)
-                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                     .crossFade()
-                     .into(detailOgImage);
+                metaOgImageUrl = metaOgImage.attr("content");
+
+                detailOgImage.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mGlideRequestManager
+                                .load(metaOgImageUrl)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .crossFade()
+                                .into(detailOgImage);
+                    }
+                });
+
             } else {
                 detailOgImage.setImageResource(R.drawable.twitter_card_default);
             }

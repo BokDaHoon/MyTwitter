@@ -22,6 +22,8 @@ public interface ProfilePresenter {
 
         void initMyProfile();
 
+        void initOtherProfile(long id);
+
         void setTimelineListAdapterModel(TimelineAdapterContract.Model adapterModel);
 
         void setTimelineListAdapterView(TimelineAdapterContract.View adapterView);

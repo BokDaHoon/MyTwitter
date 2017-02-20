@@ -14,7 +14,11 @@ import android.widget.ToggleButton;
 
 import com.boostcamp.mytwitter.mytwitter.R;
 import com.boostcamp.mytwitter.mytwitter.listener.OnItemClickListener;
+import com.boostcamp.mytwitter.mytwitter.listener.OnProfileItemClickListener;
+import com.boostcamp.mytwitter.mytwitter.profile.ProfileActivity;
+import com.boostcamp.mytwitter.mytwitter.util.Define;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.jsoup.Connection;
@@ -41,6 +45,7 @@ public class TimelineHolder extends RecyclerView.ViewHolder {
     private Context mContext;
 
     private OnItemClickListener mOnItemClickListener;
+    private OnProfileItemClickListener mProfileItemClickListener;
 
     @BindView(R.id.writer_profile)
     ImageView writerProfile;
@@ -61,11 +66,16 @@ public class TimelineHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tweet_favorite_count)
     TextView tweetFavoirteCount;
 
-    public TimelineHolder(Context context, View itemView, OnItemClickListener listener) {
+    private RequestManager mGlideRequestManager;
+    private String profileImagePath;
+
+    public TimelineHolder(Context context, View itemView, OnItemClickListener listener, OnProfileItemClickListener profileListener) {
         super(itemView);
 
         mContext = context;
         mOnItemClickListener = listener;
+        mProfileItemClickListener = profileListener;
+        mGlideRequestManager = Glide.with(mContext);
         ButterKnife.bind(this, itemView);
     }
 
@@ -75,6 +85,15 @@ public class TimelineHolder extends RecyclerView.ViewHolder {
             public void onClick(View view) {
                 if (mOnItemClickListener != null) {
                     mOnItemClickListener.onItemClick(position);
+                }
+            }
+        });
+
+        writerProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mProfileItemClickListener != null) {
+                    mProfileItemClickListener.onProfileItemClick(status.getUser().getId());
                 }
             }
         });
@@ -92,10 +111,18 @@ public class TimelineHolder extends RecyclerView.ViewHolder {
             tweetFavorite.setChecked(false);
         }
 
-        Glide.with(mContext)
-             .load(user.getProfileImageURL())
-             .diskCacheStrategy(DiskCacheStrategy.ALL)
-             .into(writerProfile);
+        profileImagePath = user.getProfileImageURL();
+
+        writerProfile.post(new Runnable() {
+            @Override
+            public void run() {
+                mGlideRequestManager
+                        .load(profileImagePath)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(writerProfile);
+            }
+        });
+
 
         createDateIn.setText(dateFormat.format(status.getCreatedAt()));
         createTimeAt.setText(timeFormat.format(status.getCreatedAt()));

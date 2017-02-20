@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,14 +24,18 @@ import com.boostcamp.mytwitter.mytwitter.R;
 import com.boostcamp.mytwitter.mytwitter.base.TwitterInfo;
 import com.boostcamp.mytwitter.mytwitter.detail.DetailActivity;
 import com.boostcamp.mytwitter.mytwitter.profile.ProfileActivity;
+import com.boostcamp.mytwitter.mytwitter.search.SearchActivity;
+import com.boostcamp.mytwitter.mytwitter.searchresult.SearchResultActivity;
 import com.boostcamp.mytwitter.mytwitter.timeline.adapter.TimelineAdapter;
 import com.boostcamp.mytwitter.mytwitter.timeline.presenter.TimelinePresenter;
 import com.boostcamp.mytwitter.mytwitter.timeline.presenter.TimelinePresenterImpl;
+import com.boostcamp.mytwitter.mytwitter.util.Define;
 import com.boostcamp.mytwitter.mytwitter.write.WriteActivity;
 import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import twitter4j.User;
 
 public class TimelineActivity extends AppCompatActivity
@@ -46,6 +51,8 @@ public class TimelineActivity extends AppCompatActivity
     NavigationView navigationView;
     @BindView(R.id.tweet_timeline)
     RecyclerView timeline;
+    @BindView(R.id.timeline_actionbar_search)
+    ImageButton searchBtn;
 
     TextView twitterProfileId;
     TextView twitterProfileName;
@@ -59,8 +66,6 @@ public class TimelineActivity extends AppCompatActivity
     public static final String DETAIL_STATUS_KEY = "detail_status_key";
     public static final String VIEWHOLDER_TYPE = "viewholder_type";
 
-    // ProfileActivity Flag
-    public static final int MY_PROFILE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +93,7 @@ public class TimelineActivity extends AppCompatActivity
     }
 
     void init() {
+
         /**
          * Sidebar Navigation View Setting
          */
@@ -136,28 +142,6 @@ public class TimelineActivity extends AppCompatActivity
             super.onBackPressed();
         }
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.timeline, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -212,9 +196,23 @@ public class TimelineActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    @Override
+    public void moveToProfile(long id) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("ProfileFlag", Define.OTHER_PROFILE);
+        intent.putExtra(Define.USER_ID_KEY, id);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.timeline_actionbar_search)
+    public void moveToSearch() {
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
+    }
+
     private void moveToProfile() {
         Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtra("ProfileFlag", MY_PROFILE);
+        intent.putExtra("ProfileFlag", Define.MY_PROFILE);
         startActivity(intent);
     }
 }

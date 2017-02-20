@@ -21,4 +21,9 @@
 
     <!-- Nav Menu item -->
     <string name="nav_profile">프로필</string>
+
+    <!-- Tabbar tab menu name -->
+    <string name="tab_menu1">Twitter</string>
+    <string name="tab_menu2">Naver</string>
+    <string name="tab_menu3">Daum</string>
 </resources>

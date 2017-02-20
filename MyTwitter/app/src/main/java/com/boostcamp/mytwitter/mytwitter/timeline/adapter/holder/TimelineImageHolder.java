@@ -1,6 +1,7 @@
 package com.boostcamp.mytwitter.mytwitter.timeline.adapter.holder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,7 +11,11 @@ import android.widget.ToggleButton;
 
 import com.boostcamp.mytwitter.mytwitter.R;
 import com.boostcamp.mytwitter.mytwitter.listener.OnItemClickListener;
+import com.boostcamp.mytwitter.mytwitter.listener.OnProfileItemClickListener;
+import com.boostcamp.mytwitter.mytwitter.profile.ProfileActivity;
+import com.boostcamp.mytwitter.mytwitter.util.Define;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.text.SimpleDateFormat;
@@ -30,6 +35,7 @@ public class TimelineImageHolder extends RecyclerView.ViewHolder {
 
     private Context mContext;
     private OnItemClickListener mOnItemClickListener;
+    private OnProfileItemClickListener mProfileItemClickListener;
 
     @BindView(R.id.writer_profile)
     ImageView writerProfile;
@@ -52,11 +58,17 @@ public class TimelineImageHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tweet_favorite_count)
     TextView tweetFavoirteCount;
 
-    public TimelineImageHolder(Context context, View itemView, OnItemClickListener listener) {
+    private RequestManager mGlideRequestManager;
+    private String profileImagePath;
+    private MediaEntity[] mediaResult;
+
+    public TimelineImageHolder(Context context, View itemView, OnItemClickListener listener, OnProfileItemClickListener profileListener) {
         super(itemView);
 
         mContext = context;
         mOnItemClickListener = listener;
+        mProfileItemClickListener = profileListener;
+        mGlideRequestManager = Glide.with(mContext);
         ButterKnife.bind(this, itemView);
     }
 
@@ -70,6 +82,15 @@ public class TimelineImageHolder extends RecyclerView.ViewHolder {
             }
         });
 
+        writerProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mProfileItemClickListener != null) {
+                    mProfileItemClickListener.onProfileItemClick(status.getUser().getId());
+                }
+            }
+        });
+
         User user = status.getUser();
         writerName.setText(user.getName());
         writerId.setText("@" + user.getScreenName());
@@ -77,18 +98,31 @@ public class TimelineImageHolder extends RecyclerView.ViewHolder {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("a hh:mm");
 
+        profileImagePath = user.getProfileImageURL();
+
         // 트윗 작성자 프로필 사진 세팅.
-        Glide.with(mContext)
-                .load(user.getProfileImageURL())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(writerProfile);
+        writerProfile.post(new Runnable() {
+            @Override
+            public void run() {
+                mGlideRequestManager
+                        .load(profileImagePath)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(writerProfile);
+            }
+        });
 
         // 트윗 이미지 세팅.
-        MediaEntity[] mediaResult = status.getMediaEntities();
-        Glide.with(mContext)
+        mediaResult = status.getMediaEntities();
+        tweetImage.post(new Runnable() {
+            @Override
+            public void run() {
+                mGlideRequestManager
                 .load(mediaResult[0].getMediaURL())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(tweetImage);
+            }
+        });
+
 
         if (status.isFavorited()) {
             tweetFavorite.setChecked(true);
@@ -100,5 +134,12 @@ public class TimelineImageHolder extends RecyclerView.ViewHolder {
         createTimeAt.setText(timeFormat.format(status.getCreatedAt()));
         tweetContent.setText(status.getText());
         tweetFavoirteCount.setText(String.valueOf(status.getFavoriteCount()));
+    }
+
+    void moveToProfile(long id) {
+        Intent intent = new Intent(mContext, ProfileActivity.class);
+        intent.putExtra("ProfileFlag", Define.OTHER_PROFILE);
+        intent.putExtra(Define.USER_ID_KEY, id);
+        mContext.startActivity(intent);
     }
 }

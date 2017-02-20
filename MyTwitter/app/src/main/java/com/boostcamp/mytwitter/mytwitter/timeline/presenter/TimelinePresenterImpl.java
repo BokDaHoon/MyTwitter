@@ -1,6 +1,7 @@
 package com.boostcamp.mytwitter.mytwitter.timeline.presenter;
 
 import com.boostcamp.mytwitter.mytwitter.listener.OnItemClickListener;
+import com.boostcamp.mytwitter.mytwitter.listener.OnProfileItemClickListener;
 import com.boostcamp.mytwitter.mytwitter.timeline.adapter.contract.TimelineAdapterContract;
 import com.boostcamp.mytwitter.mytwitter.timeline.model.TimelineModel;
 
@@ -13,7 +14,7 @@ import twitter4j.User;
  * Created by DaHoon on 2017-02-10.
  */
 
-public class TimelinePresenterImpl implements TimelinePresenter.Presenter, TimelineModel.ModelDataChange, OnItemClickListener {
+public class TimelinePresenterImpl implements TimelinePresenter.Presenter, TimelineModel.ModelDataChange, OnItemClickListener, OnProfileItemClickListener {
 
     private TimelinePresenter.View view;
     private TimelineModel model;
@@ -48,6 +49,7 @@ public class TimelinePresenterImpl implements TimelinePresenter.Presenter, Timel
     public void setTimelineListAdapterView(TimelineAdapterContract.View adapterView) {
         this.adapterView = adapterView;
         this.adapterView.setOnItemClickListener(this);
+        this.adapterView.setOnProfileItemClickListener(this);
     }
 
     @Override
@@ -59,5 +61,10 @@ public class TimelinePresenterImpl implements TimelinePresenter.Presenter, Timel
     @Override
     public void onItemClick(int position) {
         view.moveToDetail(position);
+    }
+
+    @Override
+    public void onProfileItemClick(long id) {
+        view.moveToProfile(id);
     }
 }

@@ -57,45 +57,53 @@ public class DetailModel {
             Twitter mTwit = TwitterInfo.TwitInstance;
 
             ArrayList<twitter4j.Status> replies = new ArrayList<>();
-
+            ArrayList<twitter4j.Status> all = null;
 
             try {
                 long id = status.getId();
                 String screenname = status.getUser().getScreenName();
 
                 Query query = new Query("@" + screenname + " since_id:" + id);
-                query.resultType(Query.RECENT);
+
+                System.out.println("query string: " + query.getQuery());
+
+                try {
+                    query.setCount(100);
+                } catch (Throwable e) {
+                    // enlarge buffer error?
+                    query.setCount(30);
+                }
 
                 QueryResult result = mTwit.search(query);
-                final List<twitter4j.Status> statuses = mTwit.getUserTimeline(screenname);
-                for (twitter4j.Status tweet : statuses) {
-                    if (tweet.getInReplyToStatusId() == id) {
-                        replies.add(tweet);
-                    }
-                }
-/*
-                do {
-                    Log.d("Query", query.toString());
+                System.out.println("result: " + result.getTweets().size());
+
+                all = new ArrayList<twitter4j.Status>();
+
+                /*do {
                     List<twitter4j.Status> tweets = result.getTweets();
 
-                    for (twitter4j.Status tweet : tweets) {
-                        if (tweet.getInReplyToStatusId() == id) {
-                            replies.add(tweet);
-                        }
+                    for (twitter4j.Status tweet : tweets)
+                        if (tweet.getInReplyToStatusId() == id)
+                            all.add(tweet);
+
+                    if (all.size() > 0) {
+                        for (int i = all.size() - 1; i >= 0; i--)
+                            replies.add(all.get(i));
+                        all.clear();
                     }
 
                     query = result.nextQuery();
 
-                    if (query != null) {
+                    if (query != null)
                         result = mTwit.search(query);
-                    }
 
                 } while (query != null);*/
 
             } catch (Exception e) {
                 e.printStackTrace();
+            } catch (OutOfMemoryError e) {
+                e.printStackTrace();
             }
-
             return replies;
 
         }

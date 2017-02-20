@@ -33,7 +33,13 @@ public class ProfilePresenterImpl implements ProfilePresenter.Presenter, Profile
 
     @Override
     public void initMyProfile() {
-        User user = model.getUserInfo();
+        User user = model.getUserInfo(-1);
+        view.setMyProfile(user);
+    }
+
+    @Override
+    public void initOtherProfile(long id) {
+        User user = model.getUserInfo(id);
         view.setMyProfile(user);
     }
 

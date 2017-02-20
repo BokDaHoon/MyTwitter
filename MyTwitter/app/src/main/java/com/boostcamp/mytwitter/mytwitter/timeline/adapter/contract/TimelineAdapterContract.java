@@ -1,6 +1,7 @@
 package com.boostcamp.mytwitter.mytwitter.timeline.adapter.contract;
 
 import com.boostcamp.mytwitter.mytwitter.listener.OnItemClickListener;
+import com.boostcamp.mytwitter.mytwitter.listener.OnProfileItemClickListener;
 
 import java.util.List;
 
@@ -15,6 +16,8 @@ public interface TimelineAdapterContract {
         void notifyAdapter();
 
         void setOnItemClickListener(OnItemClickListener listener);
+
+        void setOnProfileItemClickListener(OnProfileItemClickListener profileListener);
     }
 
     interface Model {

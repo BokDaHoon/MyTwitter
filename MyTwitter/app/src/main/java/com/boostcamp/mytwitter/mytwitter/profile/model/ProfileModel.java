@@ -28,12 +28,12 @@ public class ProfileModel {
         mModelDataChange = dataChange;
     }
 
-    public User getUserInfo() {
+    public User getUserInfo(long id) {
 
         User result = null;
-
+        Log.d("dddd", id + "");
         try {
-            result = new GetUserInfoTask().execute().get();
+            result = new GetUserInfoTask().execute(id).get();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,14 +45,23 @@ public class ProfileModel {
         new BindUserTweetTask().execute(id);
     }
 
-    class GetUserInfoTask extends AsyncTask<Void, Void, User> {
+    class GetUserInfoTask extends AsyncTask<Long, Void, User> {
 
         @Override
-        protected User doInBackground(Void... params) {
+        protected User doInBackground(Long... params) {
             Twitter mTwit = TwitterInfo.TwitInstance;
             List<User> user = null;
+            long[] queryParam = null;
             try {
-                user = mTwit.lookupUsers(new long[]{mTwit.getId()});
+                long id = params[0];
+
+                if (id == -1){ // MyProfile
+                    queryParam = new long[]{mTwit.getId()};
+                } else {       // OtherProfile
+                    queryParam = new long[]{id};
+                }
+
+                user = mTwit.lookupUsers(queryParam);
             } catch (TwitterException e) {
                 e.printStackTrace();
             }

@@ -14,6 +14,8 @@ public interface TimelinePresenter {
         void initSidebarNavigation(User user);
 
         void moveToDetail(int position);
+
+        void moveToProfile(long id);
     }
 
     interface Presenter {

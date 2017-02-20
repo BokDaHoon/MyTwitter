@@ -14,7 +14,11 @@ import android.widget.ToggleButton;
 
 import com.boostcamp.mytwitter.mytwitter.R;
 import com.boostcamp.mytwitter.mytwitter.listener.OnItemClickListener;
+import com.boostcamp.mytwitter.mytwitter.listener.OnProfileItemClickListener;
+import com.boostcamp.mytwitter.mytwitter.profile.ProfileActivity;
+import com.boostcamp.mytwitter.mytwitter.util.Define;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.jsoup.Connection;
@@ -40,6 +44,7 @@ public class TimelineCardviewHolder extends RecyclerView.ViewHolder {
 
     private Context mContext;
     private OnItemClickListener mOnItemClickListener;
+    private OnProfileItemClickListener mProfileItemClickListener;
 
     @BindView(R.id.writer_profile)
     ImageView writerProfile;
@@ -68,11 +73,17 @@ public class TimelineCardviewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.og_url)
     TextView ogTagUrl;
 
-    public TimelineCardviewHolder(Context context, View itemView, OnItemClickListener listener) {
+    private RequestManager mGlideRequestManager;
+    private String profileImagePath;
+    private String metaOgImageUrl;
+
+    public TimelineCardviewHolder(Context context, View itemView, OnItemClickListener listener, OnProfileItemClickListener profileListener) {
         super(itemView);
 
         mContext = context;
         mOnItemClickListener = listener;
+        mProfileItemClickListener = profileListener;
+        mGlideRequestManager = Glide.with(mContext);
         ButterKnife.bind(this, itemView);
     }
 
@@ -86,6 +97,15 @@ public class TimelineCardviewHolder extends RecyclerView.ViewHolder {
             }
         });
 
+        writerProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mProfileItemClickListener != null) {
+                    mProfileItemClickListener.onProfileItemClick(status.getUser().getId());
+                }
+            }
+        });
+
         User user = status.getUser();
         writerName.setText(user.getName());
         writerId.setText("@" + user.getScreenName());
@@ -93,10 +113,17 @@ public class TimelineCardviewHolder extends RecyclerView.ViewHolder {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("a hh:mm");
 
-        Glide.with(mContext)
-                .load(user.getProfileImageURL())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(writerProfile);
+        profileImagePath = user.getProfileImageURL();
+
+        writerProfile.post(new Runnable() {
+            @Override
+            public void run() {
+                mGlideRequestManager
+                        .load(profileImagePath)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(writerProfile);
+            }
+        });
 
         if (status.isFavorited()) {
             tweetFavorite.setChecked(true);
@@ -115,6 +142,13 @@ public class TimelineCardviewHolder extends RecyclerView.ViewHolder {
         tweetFavoirteCount.setText(String.valueOf(status.getFavoriteCount()));
     }
 
+    void moveToProfile(long id) {
+        Intent intent = new Intent(mContext, ProfileActivity.class);
+        intent.putExtra("ProfileFlag", Define.OTHER_PROFILE);
+        intent.putExtra(Define.USER_ID_KEY, id);
+        mContext.startActivity(intent);
+    }
+
     // TwitterCard UI를 세팅하기 위한 AsnycTask
     class SetCardViewTask extends AsyncTask<String, Void, Document> {
 
@@ -124,8 +158,8 @@ public class TimelineCardviewHolder extends RecyclerView.ViewHolder {
         protected Document doInBackground(String... params) {
 
             url = params[0];
-
-            Connection conn = Jsoup.connect(url);
+            Log.d("url 확인", url);
+            Connection conn = Jsoup.connect(url).timeout(5000);
             Document doc = null;
             try {
                 doc = conn.get();
@@ -140,9 +174,17 @@ public class TimelineCardviewHolder extends RecyclerView.ViewHolder {
         protected void onPostExecute(Document doc) {
             super.onPostExecute(doc);
 
+            // 접속 실패 시
+            if (doc == null) {
+                ogTagImage.setImageResource(R.drawable.twitter_card_default);
+                ogTagTitle.setText("Title");
+                ogTagUrl.setText(url);
+                return;
+            }
+
             // TwitterCard 제목 설정
             Elements metaOgTitle = doc.select("meta[property=og:title]");
-            if (metaOgTitle.attr("content") != "") {
+            if (metaOgTitle != null && metaOgTitle.attr("content") != "") {
                 ogTagTitle.setText(metaOgTitle.attr("content"));
             }
             else {
@@ -152,7 +194,7 @@ public class TimelineCardviewHolder extends RecyclerView.ViewHolder {
 
             // TwitterCard URL 설정
             Elements metaOgUrl = doc.select("meta[property=og:url]");
-            if (metaOgUrl.attr("content") != "") {
+            if (metaOgUrl != null && metaOgUrl.attr("content") != "") {
                 ogTagUrl.setText(metaOgUrl.attr("content"));
             }
             else {
@@ -163,14 +205,20 @@ public class TimelineCardviewHolder extends RecyclerView.ViewHolder {
             // TwitterCard Image 설정
             String imageUrl = null;
             Elements metaOgImage = doc.select("meta[property=og:image]");
-            Log.d("카드뷰 " + url, (metaOgImage != null) + "/" + metaOgImage.attr("content"));
-            if (metaOgImage.attr("content") != "") {
-                imageUrl = metaOgImage.attr("content");
-                Glide.with(mContext)
-                        .load(imageUrl)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .crossFade()
-                        .into(ogTagImage);
+
+            if (metaOgImage != null && metaOgImage.attr("content") != "") {
+                metaOgImageUrl = metaOgImage.attr("content");
+                ogTagImage.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mGlideRequestManager
+                            .load(metaOgImageUrl)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .crossFade()
+                            .into(ogTagImage);
+                    }
+                });
+
             } else {
                 ogTagImage.setImageResource(R.drawable.twitter_card_default);
             }
