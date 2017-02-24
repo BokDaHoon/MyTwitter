@@ -1611,7 +1611,7 @@ $.magnificPopup.registerModule(IFRAME_NS, {
 			vimeo: {
 				index: 'vimeo.com/',
 				id: '/',
-				src: '//player.vimeo.com/video/%id%?autoplay=1'
+				src: 'https://player.vimeo.com/video/%id%'
 			},
 			gmaps: {
 				index: '//maps.google.',
