@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +23,7 @@ import com.boostcamp.mytwitter.mytwitter.R;
 import com.boostcamp.mytwitter.mytwitter.base.SharedPreferenceHelper;
 import com.boostcamp.mytwitter.mytwitter.base.TwitterInfo;
 import com.boostcamp.mytwitter.mytwitter.detail.DetailActivity;
+import com.boostcamp.mytwitter.mytwitter.login.LoginActivity;
 import com.boostcamp.mytwitter.mytwitter.profile.ProfileActivity;
 import com.boostcamp.mytwitter.mytwitter.scrap.ScrapActivity;
 import com.boostcamp.mytwitter.mytwitter.search.SearchActivity;
@@ -70,12 +72,6 @@ public class TimelineActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         SharedPreferenceHelper.getInstance(this).loadProperties();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        SharedPreferenceHelper.getInstance(this).saveProperties();
     }
 
     @Override
@@ -163,14 +159,18 @@ public class TimelineActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        Log.d("", id+"");
         if (id == R.id.nav_profile) {
             moveToProfileMenu();
         } else if (id == R.id.nav_scrap) {
             moveToScrapMenu();
-        } else if (id == R.id.nav_share) {
-
         } else if (id == R.id.nav_logout) {
-
+            Log.d("", "로그아웃");
+            SharedPreferenceHelper.getInstance(this).clearProperties(); // 로그아웃
+            finish();
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

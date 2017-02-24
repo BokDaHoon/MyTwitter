@@ -34,10 +34,10 @@ public class MyTwitterApplication extends Application implements Observable {
         // Realm init
         Realm.init(this);
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
-                .name("twitdb")
+                .name("twitterdb")
                 //.migration(new StatusMigration())
-                //.deleteRealmIfMigrationNeeded()
-                .schemaVersion(1)
+                .deleteRealmIfMigrationNeeded()
+                .schemaVersion(2)
                 .build();
 
         //Realm.deleteRealm(realmConfiguration);

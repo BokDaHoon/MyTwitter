@@ -1,209 +1,600 @@
-<!DOCTYPE HTML>
-<!--
-	Hyperspace by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>Hyperspace by HTML5 UP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-	</head>
-	<body>
+  <head>    
+    <meta charset="UTF-8">
+	<title>My Twitter</title>
+    <meta name="description" content="GRAPE App landing Page by Codepassenger">
+    <meta name="author" content="CodePassenger">
+	
+	<!-- Mobile Specific Meta -->	
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 
-		<!-- Sidebar -->
-			<section id="sidebar">
-				<div class="inner">
-					<nav>
-						<ul>
-							<li><a href="#intro">Welcome</a></li>
-							<li><a href="#one">Who we are</a></li>
-							<li><a href="#two">What we do</a></li>
-							<li><a href="#three">Get in touch</a></li>
-						</ul>
-					</nav>
-				</div>
-			</section>
+    <!-- Bootstrap -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
 
-				<!-- Intro -->
-					<section id="intro" class="wrapper style1 fullscreen fade-up">
-						<div class="inner">
-							<h1>Hyperspace</h1>
-							<p>Just another fine responsive site template designed by <a href="http://html5up.net">HTML5 UP</a><br />
-							and released for free under the <a href="http://html5up.net/license">Creative Commons</a>.</p>
-							<ul class="actions">
-								<li><a href="#one" class="button scrolly">Learn more</a></li>
-							</ul>
-						</div>
-					</section>
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="assets/css/animate.css">
 
-				<!-- One -->
-					<section id="one" class="wrapper style2 spotlights">
-						<section>
-							<a href="#" class="image"><img src="images/pic01.jpg" alt="" data-position="center center" /></a>
-							<div class="content">
-								<div class="inner">
-									<h2>Sed ipsum dolor</h2>
-									<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
-									<ul class="actions">
-										<li><a href="#" class="button">Learn more</a></li>
-									</ul>
-								</div>
-							</div>
-						</section>
-						<section>
-							<a href="#" class="image"><img src="images/pic02.jpg" alt="" data-position="top center" /></a>
-							<div class="content">
-								<div class="inner">
-									<h2>Feugiat consequat</h2>
-									<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
-									<ul class="actions">
-										<li><a href="#" class="button">Learn more</a></li>
-									</ul>
-								</div>
-							</div>
-						</section>
-						<section>
-							<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="25% 25%" /></a>
-							<div class="content">
-								<div class="inner">
-									<h2>Ultricies aliquam</h2>
-									<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
-									<ul class="actions">
-										<li><a href="#" class="button">Learn more</a></li>
-									</ul>
-								</div>
-							</div>
-						</section>
-					</section>
+    <!-- Owl-carousel style -->
+    <link rel="stylesheet" href="assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="assets/css/owl.theme.css">
 
-				<!-- Two -->
-					<section id="two" class="wrapper style3 fade-up">
-						<div class="inner">
-							<h2>What we do</h2>
-							<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus, lacus eget hendrerit bibendum, urna est aliquam sem, sit amet imperdiet est velit quis lorem.</p>
-							<div class="features">
-								<section>
-									<span class="icon major fa-code"></span>
-									<h3>Lorem ipsum amet</h3>
-									<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
-								</section>
-								<section>
-									<span class="icon major fa-lock"></span>
-									<h3>Aliquam sed nullam</h3>
-									<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
-								</section>
-								<section>
-									<span class="icon major fa-cog"></span>
-									<h3>Sed erat ullam corper</h3>
-									<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
-								</section>
-								<section>
-									<span class="icon major fa-desktop"></span>
-									<h3>Veroeros quis lorem</h3>
-									<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
-								</section>
-								<section>
-									<span class="icon major fa-chain"></span>
-									<h3>Urna quis bibendum</h3>
-									<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
-								</section>
-								<section>
-									<span class="icon major fa-diamond"></span>
-									<h3>Aliquam urna dapibus</h3>
-									<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
-								</section>
-							</div>
-							<ul class="actions">
-								<li><a href="#" class="button">Learn more</a></li>
-							</ul>
-						</div>
-					</section>
+    <!-- magnific style -->
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
 
-				<!-- Three -->
-					<section id="three" class="wrapper style1 fade-up">
-						<div class="inner">
-							<h2>Get in touch</h2>
-							<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus, lacus eget hendrerit bibendum, urna est aliquam sem, sit amet imperdiet est velit quis lorem.</p>
-							<div class="split style1">
-								<section>
-									<form method="post" action="#">
-										<div class="field half first">
-											<label for="name">Name</label>
-											<input type="text" name="name" id="name" />
-										</div>
-										<div class="field half">
-											<label for="email">Email</label>
-											<input type="text" name="email" id="email" />
-										</div>
-										<div class="field">
-											<label for="message">Message</label>
-											<textarea name="message" id="message" rows="5"></textarea>
-										</div>
-										<ul class="actions">
-											<li><a href="" class="button submit">Send Message</a></li>
-										</ul>
-									</form>
-								</section>
-								<section>
-									<ul class="contact">
-										<li>
-											<h3>Address</h3>
-											<span>12345 Somewhere Road #654<br />
-											Nashville, TN 00000-0000<br />
-											USA</span>
-										</li>
-										<li>
-											<h3>Email</h3>
-											<a href="#">user@untitled.tld</a>
-										</li>
-										<li>
-											<h3>Phone</h3>
-											<span>(000) 000-0000</span>
-										</li>
-										<li>
-											<h3>Social</h3>
-											<ul class="icons">
-												<li><a href="#" class="fa-twitter"><span class="label">Twitter</span></a></li>
-												<li><a href="#" class="fa-facebook"><span class="label">Facebook</span></a></li>
-												<li><a href="#" class="fa-github"><span class="label">GitHub</span></a></li>
-												<li><a href="#" class="fa-instagram"><span class="label">Instagram</span></a></li>
-												<li><a href="#" class="fa-linkedin"><span class="label">LinkedIn</span></a></li>
-											</ul>
-										</li>
-									</ul>
-								</section>
-							</div>
-						</div>
-					</section>
+    <!-- Custom stylesheet-->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css" media="screen">
 
-			</div>
+    <!-- Added google font -->
+    <link href='http://fonts.googleapis.com/css?family=Dosis:400,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
 
-		<!-- Footer -->
-			<footer id="footer" class="wrapper style1-alt">
-				<div class="inner">
-					<ul class="menu">
-						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul>
-				</div>
-			</footer>
+    <!--Fav and touch icons-->
+    <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/images/icons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/images/icons/apple-touch-icon-114x114.png">
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
 
-	</body>
+  <body>
+
+    <!-- Preloader -->
+      <div id="faceoff">
+        <div id="preloader"></div>
+        <div class="preloader-section"></div>
+      </div>
+    <!-- Preloader end -->
+   
+    <!-- header start -->
+    <header id="home" class="navbar-fixed-top">
+      <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-3">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <h1><a class="nav-brand" href="">My Twitter</a></h1>
+              </div>
+            </div>
+            <div class="col-sm-7">
+              <!-- Collect the nav toggling -->
+              <div class="collapse navbar-collapse navbar-example" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li><a href="#intro">Intro</a></li>
+                  <li><a href="#feature">Feature</a></li>
+                  <li><a href="#description">Description</a></li>
+                  <li><a href="#screenshot">Screenshots</a></li>
+                  <li><a href="#download">Download</a></li>
+                  <li><a href="#contact">Contact</a></li>
+                </ul>             
+              </div><!-- /.navbar-collapse -->
+            </div>
+            <div class="col-sm-2 mob-right">
+              <ul class="app pull-right">
+                <li><a href=""><i class="fa fa-android"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div><!-- /.container -->
+      </nav>
+    </header>
+    <!-- header end -->
+   
+    <!-- banner start -->
+    <section id="banner" class="banner-carousel">
+      <div class="trans-bg">
+        <div id="background-carousel">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                <div class="item item-no1 active"></div>
+                <div class="item item-no2"></div>
+                <div class="item item-no3"></div>
+              </div>
+            </div>
+        </div>
+        <div class="content-wrapper">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-12">
+                  <h2><a href="" class="lg-logo">My Twitter</a></h2> <!-- .lg-logo -->
+                  <h3 class="banner-title">Introduce MyTwitter app</h3>                   
+                  <ul class="app">
+                    <li><a href=""><i class="fa fa-android"></i></a></li>
+                  </ul>                   
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> <!-- /.trans-bg -->       
+    </section>
+    <!-- banner end -->
+
+    <!-- intro start -->
+    <section id="intro" class="intro white">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 text-center">
+            <span class="sub-head wow fadeInLeft">Introduce</span>
+            <div class="title wow fadeInRight">
+              <h2>My Twitter</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="app-block wow bounceInUp" data-wow-delay=".1s">
+              <i class="fa fa-save"></i>
+              <h3>SCRAP</h3>
+              <p>타임라인의 글을 읽으면서 자신이 원하는 글이 있다면 해당 트윗을 스크랩할 수 있습니다. 스크랩한 트윗은 향후에
+			  강력한 검색기능을 이용해서 이전 트윗을 쉽게 확인할 수 있습니다.</p>
+            </div>            
+          </div>
+          <div class="col-sm-4">
+            <div class="app-block wow bounceInUp" data-wow-delay=".2s">
+              <i class="fa fa-search"></i>
+              <h3>RECOMMEND SEARCH WORD</h3>
+              <p>오직 트위터 사용자의 검색 트렌드로 검색어를 추천해주던 기존 방식에서, RT순위, 네이버, 다음 검색 순위 등으로 다양한
+			  추천 검색어를 제공한다.</p>
+            </div>            
+          </div>
+          <div class="col-sm-4">
+            <div class="app-block wow bounceInUp" data-wow-delay=".3s">
+              <i class="fa fa-calendar"></i>
+              <h3>SCHEDULED TWEET</h3>
+              <p>글을 올릴 때 즉시 업로드 되던 기존 방식에서 예약 전송 방식을 추가제공합니다. 이제 사용자는 원하는 시간을 지정하여 트윗을 올릴 수 있습니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- intro end -->
+
+    <!-- feature start -->
+    <section id="feature" class="feature">
+      <div class="trans-bg"> 
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <h2 class="wow swing" data-wow-delay=".1s">My Twitter Feature</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <ul class="feature-list-left">
+                <li>
+                  <div class="feature-detail wow fadeInLeft" data-wow-delay=".4s">
+                    <h4>Tweet</h4>
+                    <p>Twitter에 현재 생각, 추억 등을 올릴 수 있습니다. 즉시전송, 예약전송 모두 가능합니다.</p>
+                  </div>                          
+                  <div class="feature-icon wow fadeInLeft" data-wow-delay=".3s">
+                    <i class="fa fa-pencil"></i>
+                  </div>
+                </li>
+                <li>
+                  <div class="feature-detail wow fadeInLeft" data-wow-delay=".4s">
+                    <h4>Detail</h4>
+                    <p>현재 Tweet에 세부 내용을 볼 수 있습니다.</p>
+                  </div>
+                  <div class="feature-icon wow fadeInLeft" data-wow-delay=".3s">
+                    <i class="fa fa-arrows-alt"></i>
+                  </div>                  
+                </li>
+                <li>
+                  <div class="feature-detail wow fadeInLeft" data-wow-delay=".4s">
+                    <h4>Favorite</h4>
+                    <p>사용자가 마음에 드는 트윗이 있다면, 마음에 든다는 표시를 할 수 있습니다.</p>
+                  </div>
+                  <div class="feature-icon wow fadeInLeft" data-wow-delay=".3s">
+                    <i class="fa fa-heart"></i>
+                  </div>                  
+                </li>
+                <li>                  
+                  <div class="feature-detail wow fadeInLeft" data-wow-delay=".4s">
+                    <h4>Reply</h4>
+                    <p>사용자가 마음에 드는 트윗에 댓글을 남기고 의견을 공유할 수 있습니다.</p>
+                  </div>
+                  <div class="feature-icon wow fadeInLeft" data-wow-delay=".3s">
+                    <i class="fa fa-reply"></i>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="col-sm-4 text-center">
+              <img class="wow bounceInUp" src="assets/images/iphone_full.png" alt="" title="">
+            </div>
+            <div class="col-sm-4">
+              <ul class="feature-list-right">
+                <li>
+                  <div class="feature-icon wow fadeInRight" data-wow-delay=".3s">
+                    <i class="fa fa-book"></i>
+                  </div>
+                  <div class="feature-detail wow fadeInRight" data-wow-delay=".4s">
+                    <h4>Timeline</h4>
+                    <p>사용자가 팔로우한 사용자의 트윗들의 내용(글, 이미지, 트위터카드 등) 을 제공합니다.</p>
+                  </div>
+                </li>
+                <li>
+                  <div class="feature-icon wow fadeInRight" data-wow-delay=".3s">
+                    <i class="fa fa-search"></i>
+                  </div>
+                  <div class="feature-detail wow fadeInRight" data-wow-delay=".4s">
+                    <h4>Search</h4>
+                    <p>사용자를 쉽게 검색할 수 있습니다. 또한 다양한 추천 검색어를 제공받을 수 있습니다.</p>
+                  </div>
+                </li>
+                <li>
+                  <div class="feature-icon wow fadeInRight" data-wow-delay=".3s">
+                    <i class="fa fa-user"></i>
+                  </div>
+                  <div class="feature-detail wow fadeInRight" data-wow-delay=".4s">
+                    <h4>Profile</h4>
+                    <p>사용자가 올린 프로필 이미지, 트윗, 팔로워, 팔로잉 수 등 사용자의 내용을 볼 수 있습니다.</p>
+                  </div>
+                </li>
+                <li>
+                  <div class="feature-icon wow fadeInRight" data-wow-delay=".3s">
+                    <i class="fa fa-save"></i>
+                  </div>
+                  <div class="feature-detail wow fadeInRight" data-wow-delay=".4s">
+                    <h4>Scrap</h4>
+                    <p>사용자가 원하는 글을 스크랩할 수 있고, 이전 스크랩 글을 쉽게 찾도록 검색기능을 제공합니다.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div><!-- /.trans-bg -->
+        
+    </section>
+    <!-- feature end -->
+
+    <!-- description start -->
+    <section id="description" class="pricingtable-section white">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 text-center">
+            <span class="sub-head wow fadeInLeft">프로젝트에 적용한 기술입니다.</span>            
+            <div class="title wow fadeInRight">
+              <h2>Introduce Technology</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 wow bounceInUp" data-wow-duration="1s">
+            <div class="price-block">
+              <div class="price-header">
+                <h3>Android Lessons</h3>
+                <i class="fa fa-book"></i>
+              </div>
+              <div class="price-plan">
+                <ul>
+                  <li>RecyclerView</li>
+                  <li>AsyncTask</li>
+                  <li>AsyncTaskLoader</li>
+                  <li>Intent</li>
+                  <li>SharedPreference</li>
+				  <li>ContentProvider</li>
+				  <li>BroadcastReceiver</li>
+                  <li> <a href="" class="btn">sign up</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- /.price-block -->
+          </div>
+          <div class="col-sm-4 wow bounceInUp" data-wow-duration="2s">
+            <div class="price-block active">
+              <div class="price-header">
+                <h3>Homework</h3>
+                <i class="fa fa-pencil"></i>
+              </div>
+              <div class="price-plan">
+                <ul>
+                  <li>
+					<span class="price">Glide</span>
+                    <span class="month">/Image Library</span>
+				  </li>
+                  <li>
+					<span class="price">ButterKnife</span>
+                    <span class="month">/View Injection Library</span>
+				  </li>
+                  <li>
+					<span class="price">Retrofit2</span>
+                    <span class="month">/Network Library</span>
+				  </li>
+                  <li>
+					<span class="price">Realm</span>
+                    <span class="month">/Database</span>
+				  </li>
+                  <li> <a href="" class="btn">sign up</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- /.price-block -->
+          </div>
+          <div class="col-sm-4 wow bounceInUp" data-wow-duration="3s">
+            <div class="price-block">
+              <div class="price-header">
+                <h3>ETC</h3>
+                <i class="fa fa-plus"></i>
+              </div>
+              <div class="price-plan">
+                <ul>
+                  <li>JSOUP</li>
+                  <li>Image Compress</li>
+                  <li>MVP Pattern</li>
+                  <li>Observer Pattern</li>
+                  <li> <a href="" class="btn">sign up</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- /.price-block -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- video start -->
+    <section id="video" class="video">
+      <div id="trans-bg" class="trans-bg">
+      	<div class="video-container"><div id="player"></div><div class="video-mask"></div></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <div class="video-mask">
+                <h2 class="wow bounceInDown">how it works</h2>
+					<a href="https://vimeo.com/45830194" class="play wow rollIn animated"></a>
+                <span class="wow bounceInUp">watch video</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> <!-- /.trans-bg -->    
+    </section>
+    <!-- video end -->
+
+    <!-- screenshot start -->
+    <section id="screenshot" class="screenshot white">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <span class="sub-head wow fadeInLeft">take a look</span>            
+            <div class="title wow fadeInRight">
+              <h2>screenshots</h2>
+            </div>
+            <div id="owl-demo" class="owl-carousel">
+                <div class="item screenshot-block">
+                  <img src="./assets/images/screenshot1.jpg" alt="GRAPE">
+                  <div class="caption">
+                    <a class="test-popup-link" href="./assets/images/screenshot1.jpg"><i class="fa fa-plus"></i></a>
+                  </div>
+                </div>
+                <div class="item screenshot-block">
+                  <img src="./assets/images/screenshot2.jpg" alt="GRAPE">
+                  <div class="caption">
+                    <a class="test-popup-link" href="./assets/images/screenshot2.jpg"><i class="fa fa-plus"></i></a>
+                  </div>
+                </div>
+                <div class="item screenshot-block">
+                  <img src="./assets/images/screenshot3.jpg" alt="GRAPE">
+                  <div class="caption">
+                    <a class="test-popup-link" href="./assets/images/screenshot3.jpg"><i class="fa fa-plus"></i></a>
+                  </div>
+                </div>
+                <div class="item screenshot-block">
+                  <img src="./assets/images/screenshot4.jpg" alt="GRAPE">
+                  <div class="caption">
+                    <a class="test-popup-link" href="./assets/images/screenshot4.jpg"><i class="fa fa-plus"></i></a>
+                  </div>
+                </div>
+                <div class="item screenshot-block">
+                  <img src="./assets/images/screenshot5.jpg" alt="GRAPE">
+                  <div class="caption">
+                    <a class="test-popup-link" href="./assets/images/screenshot5.jpg"><i class="fa fa-plus"></i></a>
+                  </div>
+                </div>
+                <div class="item screenshot-block">
+                  <img src="./assets/images/screenshot6.jpg" alt="GRAPE">
+                  <div class="caption">
+                    <a class="test-popup-link" href="./assets/images/screenshot6.jpg"><i class="fa fa-plus"></i></a>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- screenshot end -->
+
+    <!-- review start -->
+    <section id="review" class="review">
+      <div class="trans-bg"> 
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <h2 class="wow swing">reviews</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <div id="myCarousel1" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="active item">
+                    <span class="review-img">
+                       <img src="./assets/images/thumb-1.png" alt="image">
+                     </span>
+                    <p>Twitter가 생각보다 규모가 커서 어려운 점도 많았지만 이번 프로젝트를 통해서 부스트캠프에서 배운 지식들을 
+					모두 사용하면서 복습할 수 있었습니다. 부스트캠프를 통해서 안드로이드 개발자의 역량을 기를 수 있었습니다.</p>
+                    <span class="reviewer-name">Bok Da Hoon</span>
+                    <span class="review-comp">Boostcamp</span>
+                  </div>
+                </div>          
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> <!-- /.trans-bg -->
+      
+    </section>
+    <!-- review end -->
+
+    <!-- footer start -->
+    <footer id="footer">
+      <div class="white">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <div class="social-icon">
+               <a href="" class="wow rollIn animated" data-wow-delay=".1s"><i class="fa fa-facebook"></i></a>
+               <a href="" class="wow rollIn animated" data-wow-delay=".2s"><i class="fa fa-twitter"></i></a>
+               <a href="" class="wow rollIn animated" data-wow-delay=".3s"><i class="fa fa-google-plus"></i></a>
+               <a href="" class="wow rollIn animated" data-wow-delay=".4s"><i class="fa fa-pinterest"></i></a>
+               <a href="" class="wow rollIn animated" data-wow-delay=".5s"><i class="fa fa-rss"></i></a>
+               <a href="" class="wow rollIn animated" data-wow-delay=".6s"><i class="fa fa-linkedin"></i></a>
+               <a href="" class="wow rollIn animated" data-wow-delay=".7s"><i class="fa fa-vimeo-square"></i></a>
+               <a href="" class="wow rollIn animated" data-wow-delay=".8s"><i class="fa fa-youtube-square"></i></a>
+               <a href="" class="wow rollIn animated" data-wow-delay=".9s"><i class="fa fa-dribbble"></i></a>
+              </div>
+              <div class="copyright">
+                <p>&copy; <span>GRAPE</span>2015, all right reserved</p>
+                <p>design by <span>CodePassenger</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="go-to-top">
+            <a href="#banner"></a>
+        </div>
+        <!--/.go-to-top end-->
+      </div> <!-- /.trans-bg -->
+    </footer>
+    <!-- footer end -->   
+     
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+     <!-- <script src="https://code.jquery.com/jquery.js"></script> -->
+    <script src="assets/js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/smoothscroll.js"></script>
+    <script src="assets/js/jquery.scrollTo.min.js"></script>
+    <script src="assets/js/jquery.localScroll.min.js"></script>
+    <script src="assets/js/jquery.nav.js"></script>
+    <script src="assets/js/owl.carousel.js"></script>
+    <script src="assets/js/jquery.magnific-popup.js"></script>
+    <script src="assets/js/jquery.flexslider-min.js"></script>
+    <script src="assets/js/jquery.parallax.js"></script>
+    <script src="assets/js/jquery.ajaxchimp.min.js"></script>
+    <script src="assets/js/matchMedia.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script src="assets/js/wow.js"></script>
+    <script src="assets/js/easing.js"></script>
+    
+    <script>
+    	$(document).ready(function() {
+		//"use strict";
+        $('#feature').parallax("50%", 0.5, true);
+        $('#video').parallax("50%", 0.5, true);
+        $('#subscription').parallax("50%", 0.5, true);
+        $('#review').parallax("50%", 0.5, true);
+        $('#download').parallax("50%", 0.5, true);
+        $('#footer').parallax("50%", 0.5, true);
+    	});
+
+    </script>
+    <script>
+    // --------Google map---------------
+       var map;
+       function initialize() {  
+        // Create an array of styles.
+        var styles = [
+          {
+            stylers: [
+              { hue: "#0AABE1" },
+              { saturation: 0 }
+            ]
+          },
+          {
+            featureType: 'water',
+            stylers: [
+             { visibility: "on" },
+             { color: "#9a9efd" },
+             { weight: 2.2 },
+             { gamma: 2.54 }
+            ] 
+          },
+          {
+            featureType: "road",
+            elementType: "geometry",
+            stylers: [
+              { lightness: 100 },
+              { visibility: "simplified" }
+            ]
+          },{
+            featureType: "road",
+            elementType: "labels",
+            stylers: [
+              { visibility: "off" }
+            ]
+          }
+        ];
+
+        // Create a new StyledMapType object, passing it the array of styles,
+        // as well as the name to be displayed on the map type control.
+        var styledMap = new google.maps.StyledMapType(styles,
+          {name: "Styled Map"});
+
+        // Create a map object, and include the MapTypeId to add
+        // to the map type control.
+        var losAngeles = new google.maps.LatLng(33.8030716,-118.0725641);
+        var mapOptions = {
+          zoom: 13,
+          center: losAngeles,
+          mapTypeControlOptions: {
+            mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+          },
+          scrollwheel: false,
+        };
+        var map = new google.maps.Map(document.getElementById('map'),
+          mapOptions);
+        
+
+        //Associate the styled map with the MapTypeId and set it to display.
+        map.mapTypes.set('map_style', styledMap);
+        map.setMapTypeId('map_style');
+
+        // To add the marker to the map, use the 'map' property
+        var image = 'assets/images/map_icon_3.png';
+        var marker = new google.maps.Marker({
+            position: losAngeles,
+            map: map,
+            title:"GRAPE App Store!",
+            icon: image
+        });
+
+       }
+
+    </script>    
+       
+  </body>
 </html>

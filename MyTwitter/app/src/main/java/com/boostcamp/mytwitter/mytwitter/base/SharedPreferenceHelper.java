@@ -44,16 +44,17 @@ public class SharedPreferenceHelper{
     }
 
     public void loadProperties() {
-        SharedPreferences pref = mContext.getSharedPreferences(SETTINGS_NAME, mContext.MODE_PRIVATE);
+        mSharedPreferences = mContext.getSharedPreferences(SETTINGS_NAME, mContext.MODE_PRIVATE);
 
-        TwitterInfo.TwitLogin = pref.getBoolean("TwitLogin", false);
-        TwitterInfo.TWIT_KEY_TOKEN = pref.getString("TWIT_KEY_TOKEN", "");
-        TwitterInfo.TWIT_KEY_TOKEN_SECRET = pref.getString("TWIT_KEY_TOKEN_SECRET", "");
+        TwitterInfo.TwitLogin = mSharedPreferences.getBoolean("TwitLogin", false);
+        TwitterInfo.TWIT_KEY_TOKEN = mSharedPreferences.getString("TWIT_KEY_TOKEN", "");
+        TwitterInfo.TWIT_KEY_TOKEN_SECRET = mSharedPreferences.getString("TWIT_KEY_TOKEN_SECRET", "");
     }
 
     public void clearProperties() {
         mSharedPreferences = mContext.getSharedPreferences(SETTINGS_NAME, Context.MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
         mEditor.clear();
+        mEditor.commit();
     }
 }

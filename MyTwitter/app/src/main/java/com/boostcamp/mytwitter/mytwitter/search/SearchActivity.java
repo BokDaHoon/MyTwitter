@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.boostcamp.mytwitter.mytwitter.R;
+import com.boostcamp.mytwitter.mytwitter.base.SharedPreferenceHelper;
 import com.boostcamp.mytwitter.mytwitter.base.SingleFragmentActivity;
 import com.boostcamp.mytwitter.mytwitter.search.adapter.ViewPagerAdapter;
 import com.boostcamp.mytwitter.mytwitter.searchresult.SearchResultActivity;
@@ -39,6 +40,11 @@ public class SearchActivity extends AppCompatActivity implements MaterialTabList
     private ViewPager pager;
     private ViewPagerAdapter adapter;
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferenceHelper.getInstance(this).loadProperties();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -40,7 +41,8 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     @Override
     protected void onResume() {
         super.onResume();
-        //SharedPreferenceHelper.getInstance(this).loadProperties();
+        Log.d("ddddd", "로그인");
+        SharedPreferenceHelper.getInstance(this).loadProperties();
     }
 
     @Override
@@ -103,7 +105,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     public void moveToTimeLine() {
         Intent intent = new Intent(this, TimelineActivity.class);
         startActivity(intent);
-        finish();
     }
 
 

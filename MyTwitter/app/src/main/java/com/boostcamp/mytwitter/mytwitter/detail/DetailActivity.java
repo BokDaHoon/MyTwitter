@@ -23,6 +23,7 @@ import android.widget.ToggleButton;
 
 import com.boostcamp.mytwitter.mytwitter.R;
 import com.boostcamp.mytwitter.mytwitter.base.MyTwitterApplication;
+import com.boostcamp.mytwitter.mytwitter.base.SharedPreferenceHelper;
 import com.boostcamp.mytwitter.mytwitter.base.TwitterInfo;
 import com.boostcamp.mytwitter.mytwitter.base.db.StatusRealmObject;
 import com.boostcamp.mytwitter.mytwitter.base.db.TwitterSchema;
@@ -115,6 +116,12 @@ public class DetailActivity extends AppCompatActivity implements DetailPresenter
     public void onBackPressed() {
         presenter.setFinish();
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferenceHelper.getInstance(this).loadProperties();
     }
 
     @Override

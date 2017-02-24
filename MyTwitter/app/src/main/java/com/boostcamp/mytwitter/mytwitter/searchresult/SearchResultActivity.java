@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.boostcamp.mytwitter.mytwitter.R;
+import com.boostcamp.mytwitter.mytwitter.base.SharedPreferenceHelper;
 import com.boostcamp.mytwitter.mytwitter.base.TwitterInfo;
 import com.boostcamp.mytwitter.mytwitter.profile.ProfileActivity;
 import com.boostcamp.mytwitter.mytwitter.search.SearchActivity;
@@ -52,6 +53,12 @@ public class SearchResultActivity extends AppCompatActivity implements SearchRes
 
     private SearchResultPresenterImpl presenter;
     private SearchResultAdapter adapter;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferenceHelper.getInstance(this).loadProperties();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

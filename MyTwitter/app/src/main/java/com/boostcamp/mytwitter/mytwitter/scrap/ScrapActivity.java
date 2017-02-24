@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.boostcamp.mytwitter.mytwitter.R;
+import com.boostcamp.mytwitter.mytwitter.base.SharedPreferenceHelper;
 import com.boostcamp.mytwitter.mytwitter.base.db.TwitterSchema;
 import com.boostcamp.mytwitter.mytwitter.listener.OnSearchClickListener;
 import com.boostcamp.mytwitter.mytwitter.scrap.adapter.ScrapAdapter;
@@ -54,9 +55,12 @@ public class ScrapActivity extends AppCompatActivity implements LoaderManager.Lo
     private static final int ERROR_NOT_INPUT_START_DATE = 202;
     private static final int ERROR_NOT_INPUT_END_DATE = 203;
 
+
     @Override
     public void onResume() {
         super.onResume();
+
+        SharedPreferenceHelper.getInstance(this).loadProperties();
 
         LoaderManager loaderManager = getSupportLoaderManager();
         Loader<Cursor> loader = loaderManager.getLoader(TASK_LOADER_ID);
@@ -65,6 +69,7 @@ public class ScrapActivity extends AppCompatActivity implements LoaderManager.Lo
         }else{
             getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, this);
         }
+
     }
 
     @Override

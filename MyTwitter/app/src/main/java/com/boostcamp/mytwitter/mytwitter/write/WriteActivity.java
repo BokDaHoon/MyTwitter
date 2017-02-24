@@ -1,6 +1,7 @@
 package com.boostcamp.mytwitter.mytwitter.write;
 
 import android.Manifest;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,11 +30,16 @@ import android.widget.Toast;
 
 import com.boostcamp.mytwitter.mytwitter.BuildConfig;
 import com.boostcamp.mytwitter.mytwitter.R;
+import com.boostcamp.mytwitter.mytwitter.base.SharedPreferenceHelper;
 import com.boostcamp.mytwitter.mytwitter.base.TwitterInfo;
+import com.boostcamp.mytwitter.mytwitter.base.db.TweetRealmObject;
+import com.boostcamp.mytwitter.mytwitter.listener.OnScheduledTweetListener;
 import com.boostcamp.mytwitter.mytwitter.listener.OnSearchClickListener;
+import com.boostcamp.mytwitter.mytwitter.receiver.ScheduleTweetReceiver;
 import com.boostcamp.mytwitter.mytwitter.scrap.ScrapActivity;
 import com.boostcamp.mytwitter.mytwitter.scrap.dialog.CustomDialog;
 import com.boostcamp.mytwitter.mytwitter.scrap.model.SearchDTO;
+import com.boostcamp.mytwitter.mytwitter.util.AlarmManagerUtil;
 import com.boostcamp.mytwitter.mytwitter.util.Define;
 import com.boostcamp.mytwitter.mytwitter.write.dialog.TweetSelectDialog;
 import com.boostcamp.mytwitter.mytwitter.write.presenter.WritePresenter;
@@ -53,6 +59,7 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
 import twitter4j.StatusUpdate;
 import twitter4j.User;
 
@@ -98,11 +105,19 @@ public class WriteActivity extends AppCompatActivity implements WritePresenter.V
     private String mCurrentPhotoPath;
     private TweetSelectDialog mDialog;
 
+    private Realm realm;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferenceHelper.getInstance(this).loadProperties();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write);
+        realm = Realm.getDefaultInstance();
 
         ButterKnife.bind(this);
         init();
@@ -211,7 +226,7 @@ public class WriteActivity extends AppCompatActivity implements WritePresenter.V
         presenter.writeContent(content);
     }
 
-    // 트윗 예약 전송
+    // 트윗 예약 다이얼로그
     void scheduleSetting() {
         mDialog = new TweetSelectDialog(this, "[다이얼로그 제목]", listener);
         mDialog.show();
@@ -219,11 +234,89 @@ public class WriteActivity extends AppCompatActivity implements WritePresenter.V
         imm.hideSoftInputFromWindow(tweetContent.getWindowToken(), 0);
     }
 
-    private OnSearchClickListener listener = new OnSearchClickListener() {
+    void registerScheduledTweet(Date date) {
+
+        Intent intent = getIntent();
+
+        String text = tweetContent.getText().toString();
+        String imageUrlPathTweet = "";
+        boolean replyFlag = false;
+        long id;
+
+
+        Number realmMaxId = realm.where(TweetRealmObject.class).max("id");
+        if(realmMaxId != null){
+            id = realmMaxId.longValue() + 1;
+        }else{
+            id = 1;
+        }
+
+        if (imageFlag) {
+            imageUrlPathTweet = mCurrentPhotoPath;
+        }
+
+        if (intent.hasExtra("ReplyFlag")) {
+            replyFlag = true;
+        }
+
+        Intent receiverIntent = new Intent(this, ScheduleTweetReceiver.class);
+        receiverIntent.putExtra("id", id);
+        receiverIntent.putExtra("text", text);
+        receiverIntent.putExtra("imageFlag", imageFlag);
+        receiverIntent.putExtra("replyFlag", replyFlag);
+        receiverIntent.putExtra("imageUrlPath", imageUrlPathTweet);
+
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,
+                (int) id,
+                receiverIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManagerUtil.from(this).setAlarm(date, pendingIntent);
+    }
+
+    private OnScheduledTweetListener listener = new OnScheduledTweetListener() {
         @Override
-        public void onItemClick(SearchDTO searchDTO) {
+        public void onItemClick(Date date) {
             // 검색이 성공했을 시에
             mDialog.dismiss();
+            try {
+                realm.beginTransaction();
+
+                String text = tweetContent.getText().toString();
+                String imageUrlPathTweet = "";
+                boolean replyFlag = false;
+                long id;
+
+                Intent intent = getIntent();
+                Number realmMaxId = realm.where(TweetRealmObject.class).max("id");
+                if(realmMaxId != null){
+                    id = realmMaxId.longValue() + 1;
+                }else{
+                    id = 1;
+                }
+
+                if (imageFlag) {
+                    imageUrlPathTweet = mCurrentPhotoPath;
+                }
+
+                if (intent.hasExtra("ReplyFlag")) {
+                    replyFlag = true;
+                }
+
+                TweetRealmObject tweet = realm.createObject(TweetRealmObject.class, id);
+                tweet.setText(tweetContent.getText().toString())
+                     .setImageFlag(imageFlag)
+                     .setReplyFlag(replyFlag)
+                     .setImagePath(mCurrentPhotoPath)
+                     .setScheduleDate(date);
+                realm.commitTransaction();
+            } finally {
+                registerScheduledTweet(date);
+            }
+
+            finish();
+            displaySuccessScheduled();
         }
 
     };
@@ -347,6 +440,10 @@ public class WriteActivity extends AppCompatActivity implements WritePresenter.V
 
     void displayEmptyText() {
         Toast.makeText(this, EMPTY_TEXT, Toast.LENGTH_SHORT).show();
+    }
+
+    void displaySuccessScheduled() {
+        Toast.makeText(this, "트윗이 성공적으로 예약되었습니다.", Toast.LENGTH_SHORT).show();
     }
 
     @Override

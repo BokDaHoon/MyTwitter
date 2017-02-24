@@ -18,7 +18,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".login.LoginActivity"
-            android:theme="@style/AppThemeNoBar">
+            android:theme="@style/AppThemeNoBar"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -61,6 +62,9 @@
         </activity>
         <activity android:name=".searchresult.SearchResultActivity">
         </activity>
+        <activity android:name=".scrap.ScrapActivity"
+                  android:label="@string/scrap_title">
+        </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -75,10 +79,19 @@
             android:name=".base.db.TwitterContentProvider"
             android:authorities="com.boostcamp.mytwitter.mytwitter"
             android:exported="false"/>
-
-        <activity android:name=".scrap.ScrapActivity"
-                  android:label="@string/scrap_title">
-        </activity>
+        <receiver android:name=".receiver.ScheduleTweetReceiver"
+                  android:enabled="true"
+                  android:exported="false">
+        </receiver>
+        <receiver android:name=".receiver.TweetRebootReceiver"
+                  android:enabled="true"
+                  android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".service.TweetService"
+                 android:exported="false"/>
     </application>
 
 </manifest>

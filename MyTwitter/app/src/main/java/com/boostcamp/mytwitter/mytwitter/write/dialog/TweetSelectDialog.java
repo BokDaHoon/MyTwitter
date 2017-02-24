@@ -7,12 +7,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
 import com.boostcamp.mytwitter.mytwitter.R;
-import com.boostcamp.mytwitter.mytwitter.listener.OnSearchClickListener;
+import com.boostcamp.mytwitter.mytwitter.listener.OnScheduledTweetListener;
 import com.boostcamp.mytwitter.mytwitter.scrap.model.SearchDTO;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -26,7 +25,7 @@ import info.hoang8f.widget.FButton;
 
 public class TweetSelectDialog extends Dialog implements View.OnFocusChangeListener {
 
-    private FButton scrapSearchBtn;
+    private FButton scheduledTweetBtn;
     private MaterialEditText tweetDateSearch;
     private MaterialEditText tweetTimeSearch;
 
@@ -35,7 +34,7 @@ public class TweetSelectDialog extends Dialog implements View.OnFocusChangeListe
 
     private SimpleDateFormat dateFormatter;
 
-    private OnSearchClickListener mOnClickListener;
+    private OnScheduledTweetListener mOnClickListener;
     private Context mContext;
     private SearchDTO searchDTO;
 
@@ -51,28 +50,29 @@ public class TweetSelectDialog extends Dialog implements View.OnFocusChangeListe
 
         setContentView(R.layout.dialog_tweet_select);
 
-        scrapSearchBtn = (FButton) findViewById(R.id.tweet_schedule_btn);
+        scheduledTweetBtn = (FButton) findViewById(R.id.tweet_schedule_btn);
         tweetDateSearch = (MaterialEditText) findViewById(R.id.tweet_date);
         tweetTimeSearch = (MaterialEditText) findViewById(R.id.tweet_time);
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
 
         // 클릭 이벤트 셋팅
-        scrapSearchBtn.setOnClickListener(new View.OnClickListener() {
+        scheduledTweetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mOnClickListener != null) {
                     String date = tweetDateSearch.getText().toString();
+                    String time = tweetTimeSearch.getText().toString() + ":00";
 
-                    SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
                     Date tweetDate = null;
                     try {
-                        tweetDate = transFormat.parse(date);
+                        tweetDate = transFormat.parse(date + " " + time);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
 
-                    mOnClickListener.onItemClick(searchDTO);
+                    mOnClickListener.onItemClick(tweetDate);
                 }
             }
         });
@@ -106,7 +106,7 @@ public class TweetSelectDialog extends Dialog implements View.OnFocusChangeListe
     }
 
     // 클릭버튼이 하나일때 생성자 함수로 클릭이벤트를 받는다.
-    public TweetSelectDialog(Context context, String title, OnSearchClickListener singleListener) {
+    public TweetSelectDialog(Context context, String title, OnScheduledTweetListener singleListener) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
         mContext = context;
         searchDTO = new SearchDTO();

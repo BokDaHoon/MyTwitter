@@ -1,5 +1,7 @@
 package com.boostcamp.mytwitter.mytwitter.base.db;
 
+import java.util.Date;
+
 import io.realm.DynamicRealm;
 import io.realm.RealmMigration;
 import io.realm.RealmObjectSchema;
@@ -16,10 +18,14 @@ public class StatusMigration implements RealmMigration {
         RealmSchema schema = realm.getSchema();
 
         if (oldVersion == 0) {
-            RealmObjectSchema alarmSchema = schema.get("StatusRealmObject");
+            /*RealmObjectSchema alarmSchema = schema.get("StatusRealmObject");
             alarmSchema
                     .removeField("tweetUserId")
-                    .addField("tweetUserId", String.class);
+                    .addField("tweetUserId", String.class);*/
+
+            RealmObjectSchema tweetSchema = schema.get("TweetRealmObject");
+            tweetSchema
+            .addField("scheduleDate", Date.class);
 
             oldVersion++;
         }

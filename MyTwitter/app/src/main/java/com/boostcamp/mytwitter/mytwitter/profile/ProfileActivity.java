@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.boostcamp.mytwitter.mytwitter.R;
+import com.boostcamp.mytwitter.mytwitter.base.SharedPreferenceHelper;
 import com.boostcamp.mytwitter.mytwitter.detail.DetailActivity;
 import com.boostcamp.mytwitter.mytwitter.profile.presenter.ProfilePresenter;
 import com.boostcamp.mytwitter.mytwitter.profile.presenter.ProfilePresenterImpl;
@@ -57,6 +58,12 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
     private String profileBackgroundPath;
 
     private static final String DEFAULT_PROFILE_URL = "https://abs.twimg.com/a/1487131246/img/t1/highline/empty_state/owner_empty_avatar.png";
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferenceHelper.getInstance(this).loadProperties();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
