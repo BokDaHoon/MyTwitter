@@ -41,7 +41,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("ddddd", "로그인");
         SharedPreferenceHelper.getInstance(this).loadProperties();
     }
 

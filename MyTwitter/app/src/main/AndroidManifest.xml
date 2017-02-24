@@ -18,8 +18,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".login.LoginActivity"
-            android:theme="@style/AppThemeNoBar"
-            android:noHistory="true">
+            android:theme="@style/AppThemeNoBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
