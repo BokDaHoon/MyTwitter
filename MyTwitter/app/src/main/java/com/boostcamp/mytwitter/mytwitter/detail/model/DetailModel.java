@@ -72,12 +72,9 @@ public class DetailModel {
 
                 Query query = new Query("@" + screenname + " since_id:" + id);
 
-                System.out.println("query string: " + query.getQuery());
-
                 try {
                     query.setCount(100);
                 } catch (Throwable e) {
-                    // enlarge buffer error?
                     query.setCount(30);
                 }
 
@@ -112,6 +109,7 @@ public class DetailModel {
             } catch (OutOfMemoryError e) {
                 e.printStackTrace();
             }
+
             return replies;
 
         }

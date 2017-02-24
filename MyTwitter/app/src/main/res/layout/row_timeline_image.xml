@@ -53,9 +53,10 @@
     <ImageView
         android:id="@+id/tweet_image"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:scaleType="centerCrop"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
         android:layout_below="@+id/tweet_content"
+        android:adjustViewBounds="true"
         android:layout_marginTop="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="70dp"/>

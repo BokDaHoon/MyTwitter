@@ -104,6 +104,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     public void moveToTimeLine() {
         Intent intent = new Intent(this, TimelineActivity.class);
         startActivity(intent);
+        finish();
     }
 
 
