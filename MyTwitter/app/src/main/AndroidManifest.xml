@@ -3,8 +3,14 @@
           package="com.boostcamp.mytwitter.mytwitter">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-feature android:name="android.hardware.Camera"/>
+    <uses-feature android:name="android.hardware.Camera2"/>
 
     <application
+        android:name=".base.MyTwitterApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_close_gray"
         android:label="@string/app_name"
@@ -21,7 +27,6 @@
         </activity>
         <activity
             android:name=".timeline.TimelineActivity"
-            android:label="@string/title_activity_timeline"
             android:theme="@style/AppThemeNoBar">
             <meta-data
                 android:name=".searchable"
@@ -50,10 +55,29 @@
             android:name=".profile.ProfileActivity"
             android:theme="@style/AppThemeNoBar">
         </activity>
-        <activity android:name=".search.SearchActivity"
-                  android:windowSoftInputMode="adjustResize">
+        <activity
+            android:name=".search.SearchActivity"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity android:name=".searchresult.SearchResultActivity">
+        </activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+        <provider
+            android:name=".base.db.TwitterContentProvider"
+            android:authorities="com.boostcamp.mytwitter.mytwitter"
+            android:exported="false"/>
+
+        <activity android:name=".scrap.ScrapActivity"
+                  android:label="@string/scrap_title">
         </activity>
     </application>
 

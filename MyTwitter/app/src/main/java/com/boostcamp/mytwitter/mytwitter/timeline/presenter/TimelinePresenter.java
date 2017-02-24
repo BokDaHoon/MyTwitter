@@ -16,6 +16,8 @@ public interface TimelinePresenter {
         void moveToDetail(int position);
 
         void moveToProfile(long id);
+
+        void moveToReply(long statusId);
     }
 
     interface Presenter {
@@ -28,6 +30,8 @@ public interface TimelinePresenter {
         void setTimelineListAdapterModel(TimelineAdapterContract.Model adapterModel);
 
         void setTimelineListAdapterView(TimelineAdapterContract.View adapterView);
+
+        void checkListViewPositionBottom(int visibleItemCount, int totalItemCount, int firstVisibleItemPosition);
     }
 
 }

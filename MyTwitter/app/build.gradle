@@ -40,6 +40,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     apply plugin: 'com.jakewharton.butterknife'
+    apply plugin: 'realm-android'
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'org.twitter4j:twitter4j-core:4.0.6'
     compile 'com.jakewharton:butterknife:8.4.0'
@@ -56,4 +57,8 @@ dependencies {
     compile 'org.jsoup:jsoup:1.10.2'
     compile 'com.victor:lib:1.0.4'
     compile 'it.neokree:MaterialTabs:0.11'
+
+    compile 'com.rengwuxian.materialedittext:library:2.1.4' // EditText
+    compile 'info.hoang8f:fbutton:1.0.5' // Flat Button
+    compile 'com.orhanobut:dialogplus:1.11@aar' // Dialogplus
 }

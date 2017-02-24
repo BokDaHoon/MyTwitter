@@ -5,16 +5,10 @@ import android.util.Log;
 
 import com.boostcamp.mytwitter.mytwitter.base.TwitterInfo;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
+import twitter4j.Paging;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -26,6 +20,7 @@ import twitter4j.User;
 
 public class TimelineModel {
 
+    private ArrayList<twitter4j.Status> dataList = new ArrayList<>();
     private ModelDataChange mModelDataChange;
 
     public interface ModelDataChange {
@@ -35,8 +30,8 @@ public class TimelineModel {
     /**
      * Search Github Open API
      */
-    public void callTimelineList() {
-        new BindTimelineTask().execute();
+    public void callTimelineList(int currentPage) {
+        new BindTimelineTask().execute(currentPage);
     }
 
     public User getUserInfo() {
@@ -76,38 +71,37 @@ public class TimelineModel {
         }
     }
 
-    class BindTimelineTask extends AsyncTask<Void, Void, List<Status>> {
+    class BindTimelineTask extends AsyncTask<Integer, Void, Void> {
 
         @Override
-        protected List<twitter4j.Status> doInBackground(Void... params) {
+        protected Void doInBackground(Integer... params) {
 
             Twitter mTwit = TwitterInfo.TwitInstance;
+            int currentPage = params[0];
 
             try {
-                final List<twitter4j.Status> statuses = mTwit.getHomeTimeline();
-
-                for (twitter4j.Status status : statuses) {
-                    Log.d("Timeline Model", status.toString());
-                }
-
-                return statuses;
+                Paging paging = new Paging(currentPage, 20);
+                final List<twitter4j.Status> statuses = mTwit.getHomeTimeline(paging);
+                dataList.addAll(statuses);
 
             } catch (Exception ex) {
                 ex.printStackTrace();
                 Log.d("Timeline Activity", "실패");
-                return null;
 
             }
+
+            return null;
 
         }
 
         @Override
-        protected void onPostExecute(List<twitter4j.Status> statuses) {
-            super.onPostExecute(statuses);
-            if (statuses != null) {
-                mModelDataChange.update(statuses);
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if (dataList != null) {
+                mModelDataChange.update(dataList);
             }
         }
+
 
     }
 

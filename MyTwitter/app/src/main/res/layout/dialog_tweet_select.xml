@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:fbutton="http://schemas.android.com/tools"
+              android:focusableInTouchMode="true"
+              android:gravity="top|center_horizontal"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="100dp"
+        android:background="@android:color/white"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/ic_calendar"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/tweet_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/tweet_date"
+                android:textCursorDrawable="@drawable/text_cursor_cyan"
+                android:textSize="15sp"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="center_vertical"
+                app:met_baseColor="@color/twitterDefaultColor"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="@color/twitterDefaultColor"
+                app:met_singleLineEllipsis="true" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/ic_clock"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/tweet_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/tweet_time"
+                android:textCursorDrawable="@drawable/text_cursor_cyan"
+                android:textSize="15sp"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="center_vertical"
+                app:met_baseColor="@color/twitterDefaultColor"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="@color/twitterDefaultColor"
+                app:met_singleLineEllipsis="true" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <info.hoang8f.widget.FButton
+                android:id="@+id/tweet_schedule_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|top"
+                android:layout_margin="10dp"
+                android:minHeight="40dp"
+                android:minWidth="150dp"
+                android:text="@string/tweet_btn_label"
+                android:textColor="@android:color/white"
+                fbutton:buttonColor="@color/scrapbtncolor"
+                fbutton:shadowEnabled="true" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

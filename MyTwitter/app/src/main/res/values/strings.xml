@@ -14,6 +14,14 @@
     <string name="retweet_label">리트윗</string>
     <string name="favorite_label">마음에 들어요</string>
 
+    <!-- Scrab Activity -->
+    <string name="scrap_title">스크랩</string>
+    <string name="scrap_text_hint">검색 내용을 입력하세요.</string>
+    <string name="scrap_search_content_label">내용</string>
+    <string name="scrap_search_start_date">시작 날짜</string>
+    <string name="scrap_search_end_date">종료 날짜</string>
+    <string name="scrap_search_btn_label">검색</string>
+
     <!-- Profile Activity -->
     <string name="profile_setting">편집</string>
     <string name="following_label">팔로잉</string>
@@ -26,4 +34,9 @@
     <string name="tab_menu1">Twitter</string>
     <string name="tab_menu2">Naver</string>
     <string name="tab_menu3">Daum</string>
+
+    <!-- Tweet Select Dialog -->
+    <string name="tweet_date">예약 날짜를 선택하세요.</string>
+    <string name="tweet_time">예약 시간을 선택하세요.</string>
+    <string name="tweet_btn_label">트윗</string>
 </resources>

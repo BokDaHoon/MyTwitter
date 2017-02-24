@@ -12,6 +12,8 @@
     <color name="gray">#A6A6A6</color>
     <color name="light_gray">#EAEAEA</color>
     <color name="black">#000</color>
+    <color name="cyan_500">#00bcd4</color>
+    <color name="scrapbtncolor">#34495E</color>
 
     <!-- Twitter Color -->
     <color name="twitter_default_background_color">#1DA1F2</color>

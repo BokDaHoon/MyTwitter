@@ -29,11 +29,11 @@ public class LoginPresenterImpl implements LoginPresenter.Presenter {
     @Override
     public void getRequestToken() {
         if (TwitterInfo.TwitLogin) {
-            view.moveToAuthorityView(TwitterInfo.TwitRequestToken);
+            model.resetTwitInstance();
+            view.moveToTimeLine();
 
         } else {
             new RequestTokenThreadTask().execute();
-
         }
     }
 

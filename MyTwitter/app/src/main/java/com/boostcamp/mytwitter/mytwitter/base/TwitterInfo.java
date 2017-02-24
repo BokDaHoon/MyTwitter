@@ -6,6 +6,7 @@ import twitter4j.Twitter;
 import twitter4j.User;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
+import twitter4j.conf.ConfigurationBuilder;
 
 /**
  * Created by DaHoon on 2017-02-09.
@@ -25,9 +26,10 @@ public class TwitterInfo {
     public static Twitter TwitInstance = null;
     public static AccessToken TwitAccessToken = null;
     public static RequestToken TwitRequestToken = null;
+    public static ConfigurationBuilder builder = null;
 
-    public static String TWIT_KEY_TOKEN = "";
-    public static String TWIT_KEY_TOKEN_SECRET = "";
+    public static String TWIT_KEY_TOKEN = "828798997775081472-Km5yissU0J6HdtjdKYKsabfLokjsBPz";
+    public static String TWIT_KEY_TOKEN_SECRET = "X7uitnMoA17SiMbtIvm0BKBJeyv89AXvnCBfDArNgnpeG";
     public static String TwitScreenName = "";
 
     public static SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.boostcamp.mytwitter.mytwitter.R;
 import com.boostcamp.mytwitter.mytwitter.listener.OnItemClickListener;
 import com.boostcamp.mytwitter.mytwitter.listener.OnProfileItemClickListener;
+import com.boostcamp.mytwitter.mytwitter.listener.OnReplyClickListener;
 import com.boostcamp.mytwitter.mytwitter.timeline.adapter.contract.TimelineAdapterContract;
 import com.boostcamp.mytwitter.mytwitter.timeline.adapter.holder.TimelineCardviewHolder;
 import com.boostcamp.mytwitter.mytwitter.timeline.adapter.holder.TimelineHolder;
@@ -34,6 +35,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private OnItemClickListener mOnItemClickListener;
     private OnProfileItemClickListener mProfileItemClickListener;
+    private OnReplyClickListener mOnReplyClickListener;
     private Activity mActivity;
 
     private List<Status> mList = new ArrayList<>();
@@ -52,16 +54,16 @@ public class TimelineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             case Define.TIMELINE_COMMON_TYPE :
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_timeline, parent, false);
-                viewHolder = new TimelineHolder(parent.getContext(), view, mOnItemClickListener, mProfileItemClickListener);
+                viewHolder = new TimelineHolder(parent.getContext(), view, mOnItemClickListener, mProfileItemClickListener, mOnReplyClickListener);
                 break;
 
             case Define.TIMELINE_IMAGE_TYPE :
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_timeline_image, parent, false);
-                viewHolder = new TimelineImageHolder(parent.getContext(), view, mOnItemClickListener, mProfileItemClickListener);
+                viewHolder = new TimelineImageHolder(parent.getContext(), view, mOnItemClickListener, mProfileItemClickListener, mOnReplyClickListener);
                 break;
             case Define.TIMELINE_CARDVIEW_TYPE :
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_timeline_cardview, parent, false);
-                viewHolder = new TimelineCardviewHolder(parent.getContext(), view, mOnItemClickListener, mProfileItemClickListener);
+                viewHolder = new TimelineCardviewHolder(parent.getContext(), view, mOnItemClickListener, mProfileItemClickListener, mOnReplyClickListener);
                 break;
 
         }
@@ -97,6 +99,19 @@ public class TimelineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     }
 
+
+    public void updateItem(Status data) {
+        if (mList != null) {
+
+            for (int pos = 0; pos < mList.size(); pos++) {
+                if (mList.get(pos).getId() == data.getId()) {
+                    mList.set(pos, data);
+                }
+            }
+
+        }
+    }
+
     @Override
     public int getItemViewType(int position) {
         Status status = mList.get(position);
@@ -119,8 +134,8 @@ public class TimelineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void notifyAdapter() {
+        Log.d("", "새로고침");
         notifyDataSetChanged();
-
     }
 
     @Override
@@ -131,6 +146,11 @@ public class TimelineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void setOnProfileItemClickListener(OnProfileItemClickListener profileListener) {
         mProfileItemClickListener = profileListener;
+    }
+
+    @Override
+    public void setOnReplyClickListener(OnReplyClickListener replyListener) {
+        mOnReplyClickListener = replyListener;
     }
 
 

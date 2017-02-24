@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/scrap_writer_profile"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="15dp"
+        android:src="@drawable/default_user"/>
+
+    <TextView
+        android:id="@+id/scrap_writer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/scrap_writer_profile"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        android:textSize="15sp"
+        android:text="Dahoon"/>
+
+    <TextView
+        android:id="@+id/scrap_writer_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/scrap_writer_name"
+        android:layout_alignBaseline="@id/scrap_writer_name"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="25dp"
+        android:textSize="13sp"
+        android:textColor="#A6A6A6"
+        android:text="\@potter7050"/>
+
+    <TextView
+        android:id="@+id/scrap_tweet_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/scrap_writer_profile"
+        android:layout_below="@id/scrap_writer_id"
+        android:autoLink="web"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:textSize="15sp"
+        android:textColorLink="@color/blue"
+        android:text="Hello! My name is Dahoon Bok."/>
+
+
+    <ImageView
+        android:id="@+id/scrap_tweet_image"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:layout_below="@id/scrap_tweet_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="70dp"/>
+
+
+    <TextView
+        android:id="@+id/scrap_created_date_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@id/scrap_tweet_image"
+        android:layout_toRightOf="@id/scrap_writer_profile"
+        android:textSize="11sp"
+        android:textColor="#A6A6A6"
+        android:text="2016.02.11"/>
+
+    <TextView
+        android:id="@+id/scrap_created_time_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@id/scrap_tweet_image"
+        android:layout_toRightOf="@id/scrap_created_date_in"
+        android:layout_alignBaseline="@id/scrap_created_date_in"
+        android:textSize="11sp"
+        android:textColor="#A6A6A6"
+        android:text="10:56 AM"/>
+
+
+    <ImageButton
+        android:id="@+id/tweet_option_menu"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@null"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/ic_tweet_menu"/>
+
+    <View
+        android:id="@+id/content_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/scrap_created_date_in"
+        android:background="#EAEAEA"/>
+
+</RelativeLayout>

@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,18 +13,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.boostcamp.mytwitter.mytwitter.R;
+import com.boostcamp.mytwitter.mytwitter.base.SharedPreferenceHelper;
 import com.boostcamp.mytwitter.mytwitter.base.TwitterInfo;
 import com.boostcamp.mytwitter.mytwitter.detail.DetailActivity;
 import com.boostcamp.mytwitter.mytwitter.profile.ProfileActivity;
+import com.boostcamp.mytwitter.mytwitter.scrap.ScrapActivity;
 import com.boostcamp.mytwitter.mytwitter.search.SearchActivity;
-import com.boostcamp.mytwitter.mytwitter.searchresult.SearchResultActivity;
 import com.boostcamp.mytwitter.mytwitter.timeline.adapter.TimelineAdapter;
 import com.boostcamp.mytwitter.mytwitter.timeline.presenter.TimelinePresenter;
 import com.boostcamp.mytwitter.mytwitter.timeline.presenter.TimelinePresenterImpl;
@@ -68,12 +67,25 @@ public class TimelineActivity extends AppCompatActivity
 
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferenceHelper.getInstance(this).loadProperties();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferenceHelper.getInstance(this).saveProperties();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +118,8 @@ public class TimelineActivity extends AppCompatActivity
 
         mAdapter = new TimelineAdapter(this);
         timeline.setAdapter(mAdapter);
-        timeline.setItemViewCacheSize(10);
+        timeline.setItemViewCacheSize(20);
+        timeline.addOnScrollListener(recyclerViewOnScrollListener);
 
 
         presenter = new TimelinePresenterImpl();
@@ -151,16 +164,12 @@ public class TimelineActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            moveToProfile();
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+            moveToProfileMenu();
+        } else if (id == R.id.nav_scrap) {
+            moveToScrapMenu();
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_logout) {
 
         }
 
@@ -175,8 +184,6 @@ public class TimelineActivity extends AppCompatActivity
      */
     @Override
     public void initSidebarNavigation(User user) {
-        Log.d("TimelineActivity", user.toString());
-
         TwitterInfo.TwitUser = user;
 
         twitterProfileId.setText("@" + user.getScreenName());
@@ -185,6 +192,27 @@ public class TimelineActivity extends AppCompatActivity
              .load(user.getProfileImageURL())
              .into(twitterProfileImage);
     }
+
+    /**
+     * Check List More Load
+     */
+    private RecyclerView.OnScrollListener recyclerViewOnScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+
+            int visibleItemCount = mLayoutManager.getChildCount();
+            int totalItemCount = mLayoutManager.getItemCount();
+            int firstVisibleItemPosition = mLayoutManager.findFirstVisibleItemPosition();
+
+            presenter.checkListViewPositionBottom(visibleItemCount, totalItemCount, firstVisibleItemPosition);
+        }
+    };
 
     @Override
     public void moveToDetail(int position) {
@@ -196,7 +224,6 @@ public class TimelineActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    @Override
     public void moveToProfile(long id) {
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.putExtra("ProfileFlag", Define.OTHER_PROFILE);
@@ -210,9 +237,23 @@ public class TimelineActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    private void moveToProfile() {
+    @Override
+    public void moveToReply(long statusId) {
+        Intent intent = new Intent(this, WriteActivity.class);
+        intent.putExtra("ReplyFlag", true);
+        intent.putExtra(Define.TWEET_ID_KEY, statusId);
+        startActivity(intent);
+    }
+
+    private void moveToProfileMenu() {
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.putExtra("ProfileFlag", Define.MY_PROFILE);
         startActivity(intent);
     }
+
+    private void moveToScrapMenu() {
+        Intent intent = new Intent(this, ScrapActivity.class);
+        startActivity(intent);
+    }
+
 }

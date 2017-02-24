@@ -2,6 +2,7 @@ package com.boostcamp.mytwitter.mytwitter.timeline.adapter.contract;
 
 import com.boostcamp.mytwitter.mytwitter.listener.OnItemClickListener;
 import com.boostcamp.mytwitter.mytwitter.listener.OnProfileItemClickListener;
+import com.boostcamp.mytwitter.mytwitter.listener.OnReplyClickListener;
 
 import java.util.List;
 
@@ -18,9 +19,13 @@ public interface TimelineAdapterContract {
         void setOnItemClickListener(OnItemClickListener listener);
 
         void setOnProfileItemClickListener(OnProfileItemClickListener profileListener);
+
+        void setOnReplyClickListener(OnReplyClickListener replyListener);
     }
 
     interface Model {
         void setListData(List<Status> listItem);
+
+        void updateItem(Status data);
     }
 }

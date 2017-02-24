@@ -62,11 +62,11 @@
             <ImageView
                 android:id="@+id/detail_tweet_image"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_below="@id/detail_tweet_content"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerCrop"/>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/detail_twitter_card"
@@ -221,12 +221,22 @@
                     android:id="@+id/detail_favorite_button"
                     android:layout_width="34dp"
                     android:layout_height="34dp"
+                    android:scaleType="fitXY"
                     android:layout_marginLeft="40dp"
                     android:background="@drawable/favorite_toggle_selector"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:textOff=""
                     android:textOn=""/>
+
+                <ImageButton
+                    android:id="@+id/detail_tweet_scrap_button"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="40dp"
+                    android:background="@null"
+                    android:src="@mipmap/ic_btn_scrap"/>
 
             </LinearLayout>
 

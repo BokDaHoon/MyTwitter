@@ -4,6 +4,8 @@ import com.boostcamp.mytwitter.mytwitter.timeline.adapter.contract.TimelineAdapt
 
 import org.jsoup.nodes.Document;
 
+import twitter4j.Status;
+
 /**
  * Created by DaHoon on 2017-02-15.
  */
@@ -16,6 +18,8 @@ public interface DetailPresenter {
         void progressStart();
 
         void progressStop();
+
+        boolean isFinishingActivity();
     }
 
     interface Presenter {
@@ -30,5 +34,7 @@ public interface DetailPresenter {
         void showProgressBar();
 
         void disappearProgressBar();
+
+        void setFinish();
     }
 }

@@ -28,4 +28,11 @@ public class Define {
 
     // ProfileKey
     public static final String USER_ID_KEY = "user_id_key";
+
+    // ReplyKey
+    public static final String TWEET_ID_KEY = "tweet_id_key";
+
+    // Write Activity
+    public static final int TWEET_DIRECT = 0;
+    public static final int TWEET_SCHEDULE = 1;
 }

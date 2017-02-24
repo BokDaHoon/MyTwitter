@@ -25,10 +25,10 @@ public class LoginModel {
         try {
             ConfigurationBuilder builder = new ConfigurationBuilder();
 
-            builder.setOAuthAccessToken(TwitterInfo.TWIT_KEY_TOKEN);
-            builder.setOAuthAccessTokenSecret(TwitterInfo.TWIT_KEY_TOKEN_SECRET);
             builder.setOAuthConsumerKey(TwitterInfo.TWIT_CONSUMER_KEY);
             builder.setOAuthConsumerSecret(TwitterInfo.TWIT_CONSUMER_SECRET);
+            builder.setOAuthAccessToken(TwitterInfo.TWIT_KEY_TOKEN);
+            builder.setOAuthAccessTokenSecret(TwitterInfo.TWIT_KEY_TOKEN_SECRET);
 
             Configuration config = builder.build();
             TwitterFactory tFactory = new TwitterFactory(config);

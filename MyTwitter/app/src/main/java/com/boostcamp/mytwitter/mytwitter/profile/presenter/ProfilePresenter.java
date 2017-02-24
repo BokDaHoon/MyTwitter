@@ -15,6 +15,8 @@ public interface ProfilePresenter {
         void setMyProfile(User user);
 
         void moveToDetail(int position);
+
+        void moveToReply(long statusId);
     }
 
     interface Presenter {

@@ -1,12 +1,14 @@
 package com.boostcamp.mytwitter.mytwitter.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.boostcamp.mytwitter.mytwitter.R;
+import com.boostcamp.mytwitter.mytwitter.base.SharedPreferenceHelper;
 import com.boostcamp.mytwitter.mytwitter.base.TwitterInfo;
 import com.boostcamp.mytwitter.mytwitter.login.presenter.LoginPresenter;
 import com.boostcamp.mytwitter.mytwitter.login.presenter.LoginPresenterImpl;
@@ -18,6 +20,10 @@ import butterknife.OnClick;
 import com.boostcamp.mytwitter.mytwitter.timeline.TimelineActivity;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
 public class LoginActivity extends AppCompatActivity implements LoginPresenter.View {
@@ -31,14 +37,25 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     private static final String LOGIN_SUCCESS = "로그인에 성공했습니다.";
     private static final String LOGIN_ALREADY_STATE = "이미 로그인되어 있습니다.";
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //SharedPreferenceHelper.getInstance(this).loadProperties();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferenceHelper.getInstance(this).saveProperties();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        ButterKnife.bind(this);
         init();
+
+        setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
 
     }
 
@@ -46,12 +63,14 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         presenter = new LoginPresenterImpl();
         presenter.setView(this);
 
+        SharedPreferenceHelper.getInstance(this).loadProperties();
+
+        if (TwitterInfo.TwitLogin) {
+            presenter.getRequestToken();
+        }
     }
 
-    /**
-     * 커스텀 로그인 버튼 클릭 시
-     * 숨겨놓은 TwitterLoginButton 트리거 클릭 호출.
-     */
+
     @OnClick(R.id.btn_login)
     void signInClick() {
         presenter.getRequestToken();

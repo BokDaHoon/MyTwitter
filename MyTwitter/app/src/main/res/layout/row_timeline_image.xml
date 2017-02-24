@@ -10,7 +10,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"
         android:src="@drawable/default_user"/>
 
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/writer_profile"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:textSize="15sp"
         android:text="Dahoon"/>
 
@@ -31,7 +31,7 @@
         android:layout_toRightOf="@id/writer_name"
         android:layout_alignBaseline="@id/writer_name"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:textSize="13sp"
         android:textColor="#A6A6A6"
         android:text="\@potter7050"/>
@@ -50,28 +50,6 @@
         android:textColorLink="@color/blue"
         android:text="Hello! My name is Dahoon Bok."/>
 
-    <TextView
-        android:id="@+id/created_time_at"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="10dp"
-        android:textSize="13sp"
-        android:textColor="#A6A6A6"
-        android:text="10:56 AM"/>
-
-    <TextView
-        android:id="@+id/created_date_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@id/created_time_at"
-        android:textSize="13sp"
-        android:textColor="#A6A6A6"
-        android:text="2016.02.11"/>
-
     <ImageView
         android:id="@+id/tweet_image"
         android:layout_width="match_parent"
@@ -82,22 +60,48 @@
         android:layout_marginRight="15dp"
         android:layout_marginLeft="70dp"/>
 
-    <LinearLayout
-        android:id="@+id/layout_button"
+    <TextView
+        android:id="@+id/created_date_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_below="@id/tweet_image"
         android:layout_toRightOf="@id/writer_profile"
-        android:layout_marginLeft="10dp"
-        android:gravity="center"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:textSize="11sp"
+        android:textColor="#A6A6A6"
+        android:text="2016.02.11"/>
 
-        <ImageView
+    <TextView
+        android:id="@+id/created_time_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@id/tweet_image"
+        android:layout_toRightOf="@id/created_date_in"
+        android:layout_alignBaseline="@id/created_date_in"
+        android:textSize="11sp"
+        android:textColor="#A6A6A6"
+        android:text="10:56 AM"/>
+
+    <LinearLayout
+        android:id="@+id/layout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/created_date_in"
+        android:layout_toRightOf="@id/writer_profile"
+        android:gravity="center">
+
+        <ImageButton
             android:id="@+id/tweet_reply"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:scaleType="fitXY"
+            android:background="@null"
             android:src="@mipmap/ic_reply"/>
 
         <ToggleButton
@@ -116,8 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:textSize="15sp"
-            android:text="-1"/>
+            android:textSize="15sp"/>
 
     </LinearLayout>
 
@@ -128,7 +131,8 @@
         android:layout_height="1dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/layout_button"
         android:background="#EAEAEA"/>
 
 </RelativeLayout>

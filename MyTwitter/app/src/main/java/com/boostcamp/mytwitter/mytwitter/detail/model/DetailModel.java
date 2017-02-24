@@ -12,6 +12,7 @@ import java.util.List;
 
 import twitter4j.Query;
 import twitter4j.QueryResult;
+import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -24,6 +25,7 @@ public class DetailModel {
 
     private DetailModel.ModelDataChange mModelDataChange;
     DetailPresenterImpl presenter;
+    BindUserTweetTask task;
 
     public void setPresenter(DetailPresenterImpl detailPresenter) {
         this.presenter = detailPresenter;
@@ -39,7 +41,12 @@ public class DetailModel {
     }
 
     public void callLoadReplyList(Status status) {
-        new BindUserTweetTask().execute(status);
+        task = new BindUserTweetTask();
+        task.execute(status);
+    }
+
+    public void finishedTask() {
+        task.cancel(true);
     }
 
     class BindUserTweetTask extends AsyncTask<Status, Void, List<Status>> {
@@ -77,9 +84,9 @@ public class DetailModel {
                 QueryResult result = mTwit.search(query);
                 System.out.println("result: " + result.getTweets().size());
 
-                all = new ArrayList<twitter4j.Status>();
+                all = new ArrayList<>();
 
-                /*do {
+                do {
                     List<twitter4j.Status> tweets = result.getTweets();
 
                     for (twitter4j.Status tweet : tweets)
@@ -87,8 +94,9 @@ public class DetailModel {
                             all.add(tweet);
 
                     if (all.size() > 0) {
-                        for (int i = all.size() - 1; i >= 0; i--)
+                        for (int i = all.size() - 1; i >= 0; i--) {
                             replies.add(all.get(i));
+                        }
                         all.clear();
                     }
 
@@ -97,7 +105,7 @@ public class DetailModel {
                     if (query != null)
                         result = mTwit.search(query);
 
-                } while (query != null);*/
+                } while (query != null && replies.size() < 5 && presenter.checkFinished());
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -111,6 +119,9 @@ public class DetailModel {
         @Override
         protected void onPostExecute(List<twitter4j.Status> statuses) {
             super.onPostExecute(statuses);
+            if (presenter.checkFinished() == true) {
+                return;
+            }
             presenter.disappearProgressBar();
             if (statuses != null) {
                 mModelDataChange.update(statuses);

@@ -19,6 +19,7 @@ import com.boostcamp.mytwitter.mytwitter.profile.presenter.ProfilePresenterImpl;
 import com.boostcamp.mytwitter.mytwitter.timeline.TimelineActivity;
 import com.boostcamp.mytwitter.mytwitter.timeline.adapter.TimelineAdapter;
 import com.boostcamp.mytwitter.mytwitter.util.Define;
+import com.boostcamp.mytwitter.mytwitter.write.WriteActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 
@@ -152,6 +153,14 @@ public class ProfileActivity extends AppCompatActivity implements ProfilePresent
         bundle.putSerializable(TimelineActivity.DETAIL_STATUS_KEY, adapter.getListData(position));
         intent.putExtra(TimelineActivity.VIEWHOLDER_TYPE, adapter.getItemViewType(position));
         intent.putExtra(TimelineActivity.DETAIL_STATUS_KEY, bundle);
+        startActivity(intent);
+    }
+
+    @Override
+    public void moveToReply(long statusId) {
+        Intent intent = new Intent(this, WriteActivity.class);
+        intent.putExtra("ReplyFlag", true);
+        intent.putExtra(Define.TWEET_ID_KEY, statusId);
         startActivity(intent);
     }
 
